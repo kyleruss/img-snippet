@@ -25,7 +25,7 @@ public class SnippetWindow extends JFrame
         setBackground(new Color(0, 255, 0, 1));
         getContentPane().add(panel);
         pack();
-        setAlwaysOnTop(true);
+        //setAlwaysOnTop(true);
     }
     
     public void showFrame()

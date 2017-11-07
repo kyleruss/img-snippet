@@ -69,4 +69,9 @@ public class SnippetArea
     {
         shapeArea.height    =   height;
     }
+    
+    public boolean isEmptySpace()
+    {
+        return shapeArea.width <= 1 && shapeArea.height <= 1;
+    }
 }

@@ -14,15 +14,25 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class SnippetPanel extends JPanel
+public class SnippetPanel extends JPanel implements ActionListener
 {
     private SnippetMouseListener mouseListener;
     private boolean isDrawingSnippet;
     private SnippetArea snippetArea;
+    private JButton screenshotBtn;
     
     public SnippetPanel()
     {
@@ -32,9 +42,12 @@ public class SnippetPanel extends JPanel
         mouseListener           =   new SnippetMouseListener();
         isDrawingSnippet        =   false;
         snippetArea             =   null;
+        screenshotBtn           =   new JButton("Screenshot");
         
+        add(screenshotBtn);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
+        screenshotBtn.addActionListener(this);
     }
     
     private void initDimensions()
@@ -55,7 +68,6 @@ public class SnippetPanel extends JPanel
     public void stopDrawingSnippet()
     {
         isDrawingSnippet    =   false;
-        snippetArea         =   null;
     }
     
     public void updateArea(Point currentPoint)
@@ -74,6 +86,32 @@ public class SnippetPanel extends JPanel
         }
     }
     
+    public void saveScreenshot()
+    {
+        if(snippetArea.isEmptySpace()) JOptionPane.showMessageDialog(null, "Please select an area to screenshot");
+        else
+        {
+            JFileChooser fileChooser    =   new JFileChooser();
+            int fileSaveOption          =   fileChooser.showSaveDialog(null);
+
+            if(fileSaveOption == JFileChooser.APPROVE_OPTION)
+            {
+                try
+                {
+                    File file                   =   fileChooser.getSelectedFile();
+                    BufferedImage imageCapture  =   new Robot().createScreenCapture(snippetArea.getShapeArea());
+                    ImageIO.write(imageCapture, "jpeg", file);
+                }
+                
+                catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "Failed to save screenshot");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
     @Override
     public void paintComponent(Graphics g)
     {
@@ -82,9 +120,18 @@ public class SnippetPanel extends JPanel
         g2d.setColor(Color.BLACK);
         
         if(isDrawingSnippet)
-            g2d.fill(snippetArea.getShapeArea());
+            g2d.draw(snippetArea.getShapeArea());
             
         g2d.dispose();
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        Object src  =   e.getSource();
+        
+        if(src == screenshotBtn)
+            saveScreenshot();
     }
     
     private class SnippetMouseListener extends MouseAdapter
