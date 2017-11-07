@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -24,8 +26,8 @@ public class SnippetPanel extends JPanel
     
     public SnippetPanel()
     {
-        setPreferredSize(new Dimension(700, 700));
-        setBackground(Color.WHITE);
+        initDimensions();
+        setOpaque(false);
     
         mouseListener           =   new SnippetMouseListener();
         isDrawingSnippet        =   false;
@@ -33,6 +35,15 @@ public class SnippetPanel extends JPanel
         
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
+    }
+    
+    private void initDimensions()
+    {
+        GraphicsDevice gd   =   GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width           =   gd.getDisplayMode().getWidth();
+        int height          =   gd.getDisplayMode().getHeight();
+        
+        setPreferredSize(new Dimension(width, height));
     }
     
     public void startDrawingSnippet(Point initialPoint)
@@ -71,7 +82,7 @@ public class SnippetPanel extends JPanel
         g2d.setColor(Color.BLACK);
         
         if(isDrawingSnippet)
-            g2d.draw(snippetArea.getShapeArea());
+            g2d.fill(snippetArea.getShapeArea());
             
         g2d.dispose();
     }
@@ -79,29 +90,20 @@ public class SnippetPanel extends JPanel
     private class SnippetMouseListener extends MouseAdapter
     {
         @Override
-        public void mouseClicked(MouseEvent e)
-        {
-            System.out.println("Mouse clicked");
-        }
-
-        @Override
         public void mousePressed(MouseEvent e)
         {
-            System.out.println("Mouse pressed");
             startDrawingSnippet(e.getPoint());
         }
         
         @Override
         public void mouseReleased(MouseEvent e)
         {
-            System.out.println("Mouse released");
             stopDrawingSnippet();
         }
         
         @Override
         public void mouseDragged(MouseEvent e)
         {
-            System.out.println("Dragging");
             updateArea(e.getPoint());
         }
     }
