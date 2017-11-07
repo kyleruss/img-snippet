@@ -7,12 +7,12 @@
 package com.kyleruss.imgsnippet.gui;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class SnippetArea 
 {
     private Point initialPoint;
-    private int width;
-    private int height;
+    private Rectangle shapeArea;
     
     public SnippetArea()
     {
@@ -22,10 +22,24 @@ public class SnippetArea
     public SnippetArea(Point initialPoint)
     {
         this.initialPoint   =   initialPoint;
-        this.width          =   0;
-        this.height         =   0;
+        shapeArea           =   new Rectangle(initialPoint.x, initialPoint.y, 0, 0);
     }
-
+    
+    public Rectangle getShapeArea()
+    {
+        return shapeArea;
+    }
+    
+    public void setShapeArea(Rectangle shapeArea)
+    {
+        this.shapeArea  =   shapeArea;
+    }
+    
+    public Point getAreaCoords()
+    {
+        return new Point(shapeArea.x, shapeArea.y);
+    }
+    
     public Point getInitialPoint()
     {
         return initialPoint;
@@ -38,21 +52,21 @@ public class SnippetArea
 
     public int getWidth()
     {
-        return width;
+        return shapeArea.width;
     }
 
     public void setWidth(int width)
     {
-        this.width = width;
+        shapeArea.width    =   width;
     }
 
     public int getHeight() 
     {
-        return height;
+        return shapeArea.height;
     }
 
     public void setHeight(int height)
     {
-        this.height = height;
+        shapeArea.height    =   height;
     }
 }
