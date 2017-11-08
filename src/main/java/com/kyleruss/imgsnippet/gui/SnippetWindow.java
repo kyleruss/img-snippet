@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.ConfigManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
@@ -25,7 +26,6 @@ public class SnippetWindow extends JFrame
         setBackground(new Color(0, 255, 0, 1));
         getContentPane().add(panel);
         pack();
-        //setAlwaysOnTop(true);
     }
     
     public void showFrame()
