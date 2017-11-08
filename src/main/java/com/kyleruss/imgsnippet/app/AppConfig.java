@@ -8,15 +8,29 @@ package com.kyleruss.imgsnippet.app;
 
 public class AppConfig
 {
+    public static final String DEFAULT_DIR          =   "captures/";
+    public static final String DEFAULT_SS_BIND      =   "SHIFT+S";
+    public static final String DEFAULT_DRAW_BIND    =   "SHIFT+D";   
+    
     private String imageDirectory;
     private boolean storeLocally;
     private String screenshotBind;
     private boolean uploadOnline;
     private String drawBind;
     
-    public AppConfig()
+    protected AppConfig()
     {
-        
+        this(DEFAULT_DIR, true, true, DEFAULT_SS_BIND, DEFAULT_DRAW_BIND);
+    }
+    
+    protected AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline,
+    String screenshotBind, String drawBind)
+    {
+        this.imageDirectory     =   imageDirectory;
+        this.storeLocally       =   storeLocally;
+        this.screenshotBind     =   screenshotBind;
+        this.uploadOnline       =   uploadOnline;
+        this.drawBind           =   drawBind;
     }
 
     public boolean isUploadOnline() 
