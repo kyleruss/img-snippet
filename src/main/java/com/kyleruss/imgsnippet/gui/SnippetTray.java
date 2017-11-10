@@ -6,19 +6,27 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import java.awt.AWTException;
+import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 public class SnippetTray implements ActionListener
 {
-    public static final String TRAY_IMG_PATH    =   "data/images/trayicon.png";
+    public static final String TRAY_IMG_PATH    =   "data/images/trayIcon.png";
     
     private SystemTray tray;
     private TrayIcon trayIcon;
-    private PopupMenu trayPopup;
+    private PopupMenu trayMenu;
+    private MenuItem exitItem, settingsItem, browseItem;
     
     public SnippetTray()
     {
@@ -29,8 +37,23 @@ public class SnippetTray implements ActionListener
     {
         if(SystemTray.isSupported())
         {
-            tray        =   SystemTray.getSystemTray();
-            trayPopup   =   new PopupMenu();   
+            try
+            {
+                tray                =   SystemTray.getSystemTray();
+                trayMenu            =   new PopupMenu();   
+                BufferedImage image =   ImageIO.read(new File(TRAY_IMG_PATH));
+                trayIcon            =   new TrayIcon(image, "Img-Snippet", trayMenu);
+                trayIcon.setImageAutoSize(true);
+                trayIcon.addActionListener(this);
+                tray.add(trayIcon);
+                System.out.println("Init tray");
+            }
+            
+            catch(IOException | AWTException e)
+            {
+                JOptionPane.showMessageDialog(null, "Failed to initialize application tray");
+                e.printStackTrace();
+            }
         }
     }
 
