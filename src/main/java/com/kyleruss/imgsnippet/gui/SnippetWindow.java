@@ -7,7 +7,9 @@
 package com.kyleruss.imgsnippet.gui;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class SnippetWindow extends JFrame
 {
@@ -20,6 +22,7 @@ public class SnippetWindow extends JFrame
         
         initFrame();
         snippetTray     =   new SnippetTray();
+        initLookAndFeel();
     }
     
     private void initFrame()
@@ -32,6 +35,19 @@ public class SnippetWindow extends JFrame
         pack();
     }
     
+    private void initLookAndFeel()
+    {
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public SnippetTray getSnippetTray()
     {
         return snippetTray;
@@ -42,9 +58,14 @@ public class SnippetWindow extends JFrame
         setVisible(true);
     }
     
+    public void hideFrame()
+    {
+        setVisible(false);
+    }
+    
     public static void main(String[] args)
     {
         SnippetWindow snippetWindow     =   new SnippetWindow();
-      //  snippetWindow.showFrame();
+        snippetWindow.showFrame();
     }
 }

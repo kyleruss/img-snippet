@@ -31,6 +31,7 @@ public class SnippetTray implements ActionListener
     public SnippetTray()
     {
         initTray();
+        initMenuItems();
     }
     
     public void initTray()
@@ -46,7 +47,6 @@ public class SnippetTray implements ActionListener
                 trayIcon.setImageAutoSize(true);
                 trayIcon.addActionListener(this);
                 tray.add(trayIcon);
-                System.out.println("Init tray");
             }
             
             catch(IOException | AWTException e)
@@ -54,6 +54,24 @@ public class SnippetTray implements ActionListener
                 JOptionPane.showMessageDialog(null, "Failed to initialize application tray");
                 e.printStackTrace();
             }
+        }
+    }
+    
+    private void initMenuItems()
+    {
+        if(trayMenu != null)
+        {
+            exitItem        =   new MenuItem("Exit");
+            browseItem      =   new MenuItem("Browse");
+            settingsItem    =   new MenuItem("Settings");
+            
+            trayMenu.add(browseItem);
+            trayMenu.add(settingsItem);
+            trayMenu.add(exitItem);
+            
+            exitItem.addActionListener(this);
+            browseItem.addActionListener(this);
+            settingsItem.addActionListener(this);
         }
     }
 
@@ -64,5 +82,8 @@ public class SnippetTray implements ActionListener
         
         if(src == trayIcon)
             System.out.println("Open snippet window");
+        
+        else if(src == exitItem)
+            System.exit(0);
     }
 }
