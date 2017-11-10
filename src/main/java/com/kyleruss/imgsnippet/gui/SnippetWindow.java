@@ -21,8 +21,8 @@ public class SnippetWindow extends JFrame
         super("imgSnippet");
         
         initFrame();
-        snippetTray     =   new SnippetTray();
         initLookAndFeel();
+        snippetTray     =   new SnippetTray();
     }
     
     private void initFrame()
@@ -61,11 +61,5 @@ public class SnippetWindow extends JFrame
     public void hideFrame()
     {
         setVisible(false);
-    }
-    
-    public static void main(String[] args)
-    {
-        SnippetWindow snippetWindow     =   new SnippetWindow();
-        snippetWindow.showFrame();
     }
 }

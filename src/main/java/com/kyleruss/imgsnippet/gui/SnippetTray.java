@@ -26,7 +26,7 @@ public class SnippetTray implements ActionListener
     private SystemTray tray;
     private TrayIcon trayIcon;
     private PopupMenu trayMenu;
-    private MenuItem exitItem, settingsItem, browseItem;
+    private MenuItem exitItem, settingsItem, browseItem, screenshotItem, drawCaptureItem;
     
     public SnippetTray()
     {
@@ -64,7 +64,11 @@ public class SnippetTray implements ActionListener
             exitItem        =   new MenuItem("Exit");
             browseItem      =   new MenuItem("Browse");
             settingsItem    =   new MenuItem("Settings");
-            
+            screenshotItem  =   new MenuItem("Screenshot");
+            drawCaptureItem =   new MenuItem("Snippet");
+
+            trayMenu.add(drawCaptureItem);            
+            trayMenu.add(screenshotItem);
             trayMenu.add(browseItem);
             trayMenu.add(settingsItem);
             trayMenu.add(exitItem);
@@ -72,6 +76,8 @@ public class SnippetTray implements ActionListener
             exitItem.addActionListener(this);
             browseItem.addActionListener(this);
             settingsItem.addActionListener(this);
+            drawCaptureItem.addActionListener(this);
+            screenshotItem.addActionListener(this);
         }
     }
 
@@ -85,5 +91,6 @@ public class SnippetTray implements ActionListener
         
         else if(src == exitItem)
             System.exit(0);
+        
     }
 }
