@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +18,8 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -30,6 +33,7 @@ import javax.swing.JPanel;
 public class SnippetPanel extends JPanel implements ActionListener
 {
     private SnippetMouseListener mouseListener;
+    private SnippetKeyListener keyListener;
     private boolean isDrawingSnippet;
     private SnippetArea snippetArea;
     private JButton screenshotBtn;
@@ -40,13 +44,17 @@ public class SnippetPanel extends JPanel implements ActionListener
         setOpaque(false);
     
         mouseListener           =   new SnippetMouseListener();
+        keyListener             =   new SnippetKeyListener();
         isDrawingSnippet        =   false;
         snippetArea             =   null;
         screenshotBtn           =   new JButton("Screenshot");
         
+        setFocusable(true);
+        requestFocus();
         add(screenshotBtn);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
+        addKeyListener(keyListener);
         screenshotBtn.addActionListener(this);
     }
     
@@ -133,7 +141,7 @@ public class SnippetPanel extends JPanel implements ActionListener
         if(src == screenshotBtn)
             saveScreenshot();
     }
-    
+
     private class SnippetMouseListener extends MouseAdapter
     {
         @Override
@@ -153,5 +161,23 @@ public class SnippetPanel extends JPanel implements ActionListener
         {
             updateArea(e.getPoint());
         }
+    }
+    
+    private class SnippetKeyListener implements KeyListener
+    {
+        @Override
+        public void keyPressed(KeyEvent e) 
+        {
+            int keyCode =   e.getKeyCode();
+
+            if(keyCode == KeyEvent.VK_ESCAPE)
+                AppManager.getInstance().getDisplayWindow().hideFrame();
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+        public void keyReleased(KeyEvent e) {}
     }
 }
