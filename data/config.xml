@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <appConfig>
     <drawBind>SHIFT+D</drawBind>
-    <imageDirectory>captures/</imageDirectory>
+    <imageDirectory>data/captures/</imageDirectory>
     <screenshotBind>SHIFT+S</screenshotBind>
     <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>

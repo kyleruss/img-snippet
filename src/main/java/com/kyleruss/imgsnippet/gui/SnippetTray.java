@@ -7,6 +7,7 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppManager;
+import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.AWTException;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -95,5 +96,8 @@ public class SnippetTray implements ActionListener
         
         else if(src == drawCaptureItem)
             AppManager.getInstance().getDisplayWindow().showFrame();
+        
+        else if(src == browseItem)
+            ScreenshotManager.getInstance().browseScreenshotDirectory();
     }
 }
