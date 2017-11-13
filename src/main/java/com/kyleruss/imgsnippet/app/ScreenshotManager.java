@@ -6,18 +6,17 @@
 
 package com.kyleruss.imgsnippet.app;
 
-import com.kyleruss.imgsnippet.gui.SnippetTray;
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
-import java.awt.TrayIcon;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import java.util.Random;
 
 public class ScreenshotManager 
 {
@@ -25,10 +24,12 @@ public class ScreenshotManager
     
     private ScreenshotManager() {}
     
-    public void saveScreenshotToStorage(BufferedImage screenshot) throws IOException
+    public void saveScreenshotToStorage(BufferedImage screenshot, String fileName) throws IOException
     {
+        final String EXTENSION  =   ".jpg";
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
-        String path             =   appConfig.getImageDirectory();
+        fileName                =   fileName == null? generateFileName() : fileName;
+        String path             =   appConfig.getImageDirectory() + fileName + EXTENSION;
         File file               =   new File(path);
         ImageIO.write(screenshot, "jpeg", file);
     }
@@ -43,7 +44,7 @@ public class ScreenshotManager
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
         
         if(appConfig.isStoreLocally())
-            saveScreenshotToStorage(screenshot);
+            saveScreenshotToStorage(screenshot, null);
         
         if(appConfig.isUploadOnline())
             uploadScreenshot(screenshot);
@@ -60,6 +61,22 @@ public class ScreenshotManager
         return createScreenshotArea(area);
     }
     
+    public String generateFileName()
+    {
+        String fileName     =   "";
+        String dir          =   ConfigManager.getInstance().getAppConfig().getImageDirectory();
+        Random rGen         =   new Random();
+        
+        do
+        {
+            for(int i = 0; i < 5; i++)
+                fileName += (char) (rGen.nextInt(26) + 'a') ;
+        }
+        
+        while(new File(dir + fileName).exists());
+        
+        return fileName;
+    }
     
     public void browseScreenshotDirectory()
     {

@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 public class SnippetWindow extends JFrame
 {
-    private SnippetPanel panel;
+    private SnippetPanel snippetPanel;
     private SnippetTray snippetTray;
     
     public SnippetWindow()
@@ -27,11 +27,11 @@ public class SnippetWindow extends JFrame
     
     private void initFrame()
     {
-        panel   =   new SnippetPanel();
+        snippetPanel   =   new SnippetPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setBackground(new Color(0, 255, 0, 1));
-        getContentPane().add(panel);
+        getContentPane().add(snippetPanel);
         pack();
     }
     
@@ -46,6 +46,11 @@ public class SnippetWindow extends JFrame
         {
             e.printStackTrace();
         }
+    }
+    
+    public SnippetPanel getSnippetPanel()
+    {
+        return snippetPanel;
     }
     
     public SnippetTray getSnippetTray()

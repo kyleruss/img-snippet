@@ -11,16 +11,16 @@ import com.kyleruss.imgsnippet.gui.SnippetWindow;
 public class AppManager
 {
     private static AppManager instance;
-    private SnippetWindow displayWindow;
+    private SnippetWindow display;
     
     private AppManager() 
     {
-        displayWindow   =   new SnippetWindow();
+        display   =   new SnippetWindow();
     }
     
-    public SnippetWindow getDisplayWindow()
+    public SnippetWindow getDisplay()
     {
-        return displayWindow;
+        return display;
     }
     
     public static AppManager createInstance()

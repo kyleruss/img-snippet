@@ -101,7 +101,7 @@ public class SnippetPanel extends JPanel implements ActionListener
     
     public void screenshotNotify(String msg, boolean notify)
     {
-        SnippetTray snippetTray         =   AppManager.getInstance().getDisplayWindow().getSnippetTray();
+        SnippetTray snippetTray         =   AppManager.getInstance().getDisplay().getSnippetTray();
         TrayIcon trayIcon               =   snippetTray.getTrayIcon();
         TrayIcon.MessageType msgType    =   notify? TrayIcon.MessageType.INFO : TrayIcon.MessageType.WARNING;   
         
@@ -197,7 +197,7 @@ public class SnippetPanel extends JPanel implements ActionListener
             int keyCode =   e.getKeyCode();
 
             if(keyCode == KeyEvent.VK_ESCAPE)
-                AppManager.getInstance().getDisplayWindow().hideFrame();
+                AppManager.getInstance().getDisplay().hideFrame();
         }
 
         @Override

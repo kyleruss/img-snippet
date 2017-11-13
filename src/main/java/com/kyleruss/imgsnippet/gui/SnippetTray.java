@@ -92,7 +92,10 @@ public class SnippetTray implements ActionListener
             System.exit(0);
         
         else if(src == drawCaptureItem)
-            AppManager.getInstance().getDisplayWindow().showFrame();
+            AppManager.getInstance().getDisplay().showFrame();
+        
+        else if(src == screenshotItem)
+            AppManager.getInstance().getDisplay().getSnippetPanel().saveMonitorScreenshot();
         
         else if(src == browseItem)
             ScreenshotManager.getInstance().browseScreenshotDirectory();
