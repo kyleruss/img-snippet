@@ -25,12 +25,28 @@ public class ScreenshotManager
     
     private ScreenshotManager() {}
     
-    public void saveScreenshotToStorage(BufferedImage screenshotImage) throws IOException
+    public void saveScreenshotToStorage(BufferedImage screenshot) throws IOException
     {
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
         String path             =   appConfig.getImageDirectory();
         File file               =   new File(path);
-        ImageIO.write(screenshotImage, "jpeg", file);
+        ImageIO.write(screenshot, "jpeg", file);
+    }
+    
+    public void uploadScreenshot(BufferedImage screenshot)
+    {
+        
+    }
+    
+    public void handleScreenshot(BufferedImage screenshot) throws IOException
+    {
+        AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
+        
+        if(appConfig.isStoreLocally())
+            saveScreenshotToStorage(screenshot);
+        
+        if(appConfig.isUploadOnline())
+            uploadScreenshot(screenshot);
     }
     
     public BufferedImage createScreenshotArea(Rectangle area) throws AWTException
@@ -38,19 +54,12 @@ public class ScreenshotManager
         return new Robot().createScreenCapture(area);
     }
     
-    public BufferedImage createScreenshot() throws AWTException
+    public BufferedImage createMonitorScreenshot() throws AWTException
     {
         Rectangle area      =       new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
         return createScreenshotArea(area);
     }
     
-    public void screenshotNotify(String msg)
-    {
-        SnippetTray snippetTray     =   AppManager.getInstance().getDisplayWindow().getSnippetTray();
-        TrayIcon trayIcon           =   snippetTray.getTrayIcon();
-        
-        trayIcon.displayMessage("ImgSnippet", msg, TrayIcon.MessageType.INFO);
-    }
     
     public void browseScreenshotDirectory()
     {
