@@ -30,7 +30,6 @@ public class ConfigManager
             JAXBContext jaxbContext     =   JAXBContext.newInstance(AppConfig.class);
             Unmarshaller unmarshaller   =   jaxbContext.createUnmarshaller();
             appConfig                   =   (AppConfig) unmarshaller.unmarshal(file);
-            System.out.println("Dir: " + appConfig.getImageDirectory());
         }
         
         catch(Exception e)

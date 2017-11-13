@@ -82,16 +82,13 @@ public class SnippetTray implements ActionListener
             screenshotItem.addActionListener(this);
         }
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e)
     {
         Object src  =   e.getSource();
         
-        if(src == trayIcon)
-            System.out.println("Open snippet window");
-        
-        else if(src == exitItem)
+        if(src == exitItem)
             System.exit(0);
         
         else if(src == drawCaptureItem)
@@ -100,4 +97,21 @@ public class SnippetTray implements ActionListener
         else if(src == browseItem)
             ScreenshotManager.getInstance().browseScreenshotDirectory();
     }
+
+    public SystemTray getTray() 
+    {
+        return tray;
+    }
+
+    public TrayIcon getTrayIcon() 
+    {
+        return trayIcon;
+    }
+
+    public PopupMenu getTrayMenu() 
+    {
+        return trayMenu;
+    }
+    
+    
 }
