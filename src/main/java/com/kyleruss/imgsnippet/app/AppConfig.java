@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AppConfig
 {
     public static final String CONFIG_PATH          =   "data/config.xml";
+    public static final String SOUNDS_DIR           =   "data/sounds/";
+    public static final String IMG_RES_DIR          =   "data/images/";
     public static final String DEFAULT_DIR          =   "data/captures/";
     public static final String DEFAULT_SS_BIND      =   "SHIFT+S";
     public static final String DEFAULT_DRAW_BIND    =   "SHIFT+D";   

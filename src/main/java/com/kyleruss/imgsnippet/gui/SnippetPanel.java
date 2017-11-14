@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.Color;
@@ -25,9 +26,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javazoom.jl.player.Player;
 
 public class SnippetPanel extends JPanel implements ActionListener
 {
@@ -77,6 +84,24 @@ public class SnippetPanel extends JPanel implements ActionListener
         isDrawingSnippet    =   false;
     }
     
+    public void playScreenshotSound()
+    {
+        try
+        {
+            String soundFilePath            =   AppConfig.SOUNDS_DIR + "snippet-sound.mp3";
+            FileInputStream audioFileStream =   new FileInputStream(new File(soundFilePath));
+            Player audioPlayer              =   new Player(audioFileStream);
+            
+            audioPlayer.play();
+        }
+        
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Failed to load resource");
+            e.printStackTrace();
+        }
+    }
+    
     public void updateArea(Point currentPoint)
     {
         if(snippetArea != null)
@@ -113,6 +138,7 @@ public class SnippetPanel extends JPanel implements ActionListener
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
                 screenshotManager.handleScreenshot(screenshot);
                 screenshotNotify(SAVE_SUCC_MSG, true);
+                playScreenshotSound();
             }
             
             catch(Exception e)
@@ -131,6 +157,7 @@ public class SnippetPanel extends JPanel implements ActionListener
              BufferedImage screenshot                   =   screenshotManager.createMonitorScreenshot();
              screenshotManager.handleScreenshot(screenshot);
              screenshotNotify(SAVE_SUCC_MSG, true);
+             playScreenshotSound();
         }
         
         catch(Exception e)

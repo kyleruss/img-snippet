@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.AWTException;
@@ -23,7 +24,7 @@ import javax.swing.JOptionPane;
 
 public class SnippetTray implements ActionListener
 {
-    public static final String TRAY_IMG_PATH    =   "data/images/trayIcon.png";
+    public static final String TRAY_IMG_PATH    =   AppConfig.IMG_RES_DIR + "trayIcon.png";
     
     private SystemTray tray;
     private TrayIcon trayIcon;
