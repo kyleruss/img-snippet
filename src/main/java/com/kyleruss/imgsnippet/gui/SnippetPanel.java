@@ -9,6 +9,7 @@ package com.kyleruss.imgsnippet.gui;
 import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -48,6 +49,7 @@ public class SnippetPanel extends JPanel implements ActionListener
         isDrawingSnippet        =   false;
         snippetArea             =   null;
         
+        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         setFocusable(true);
         requestFocus();
         addMouseListener(mouseListener);
