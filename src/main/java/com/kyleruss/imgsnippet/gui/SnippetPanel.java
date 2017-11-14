@@ -16,7 +16,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -41,7 +37,6 @@ public class SnippetPanel extends JPanel implements ActionListener
     private SnippetKeyListener keyListener;
     private boolean isDrawingSnippet;
     private SnippetArea snippetArea;
-    private JButton screenshotBtn;
     
     public SnippetPanel()
     {
@@ -52,15 +47,12 @@ public class SnippetPanel extends JPanel implements ActionListener
         keyListener             =   new SnippetKeyListener();
         isDrawingSnippet        =   false;
         snippetArea             =   null;
-        screenshotBtn           =   new JButton("Screenshot");
         
         setFocusable(true);
         requestFocus();
-        add(screenshotBtn);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
         addKeyListener(keyListener);
-        screenshotBtn.addActionListener(this);
     }
     
     private void initDimensions()
@@ -163,9 +155,6 @@ public class SnippetPanel extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         Object src  =   e.getSource();
-        
-        if(src == screenshotBtn)
-            saveDrawnScreenshot();
     }
 
     private class SnippetMouseListener extends MouseAdapter
@@ -180,6 +169,8 @@ public class SnippetPanel extends JPanel implements ActionListener
         public void mouseReleased(MouseEvent e)
         {
             stopDrawingSnippet();
+            saveDrawnScreenshot();
+            AppManager.getInstance().getDisplay().hideFrame();
         }
         
         @Override
