@@ -74,6 +74,7 @@ public class SnippetTray implements ActionListener
             trayMenu.add(screenshotItem);
             trayMenu.add(browseItem);
             trayMenu.add(settingsItem);
+            trayMenu.addSeparator();
             trayMenu.add(exitItem);
             
             exitItem.addActionListener(this);
