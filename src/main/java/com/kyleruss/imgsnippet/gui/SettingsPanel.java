@@ -24,4 +24,8 @@ public class SettingsPanel extends JPanel
     {
         
     }
+    
+    public void openSettingsPanel()
+    {
+    }
 }
