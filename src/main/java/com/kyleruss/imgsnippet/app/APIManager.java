@@ -12,6 +12,10 @@ public class APIManager
     
     private APIManager() {}
     
+    public void makeRequest()
+    {
+        
+    }
         
     public static APIManager getInstance()
     {
