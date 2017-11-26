@@ -19,6 +19,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import java.util.Random;
+import org.json.JSONObject;
 
 public class ScreenshotManager 
 {
@@ -42,7 +43,8 @@ public class ScreenshotManager
         
         try
         {
-            apiManager.uploadImage(screenshot);
+            JSONObject response =   apiManager.uploadImage(screenshot);
+            System.out.println(response.get("data"));
         }
         
         catch(IOException e)

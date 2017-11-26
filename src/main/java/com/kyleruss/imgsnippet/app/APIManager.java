@@ -20,6 +20,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 public class APIManager 
 {
@@ -31,7 +32,7 @@ public class APIManager
     
     private APIManager() {}
     
-    public void uploadImage(BufferedImage image) throws IOException
+    public JSONObject uploadImage(BufferedImage image) throws IOException
     {
         String encodedImage         =   ScreenshotManager.getInstance().encodeImage(image);
         HttpClient client           =   HttpClientBuilder.create().build();
@@ -47,7 +48,7 @@ public class APIManager
         HttpResponse response       =   client.execute(postRequest);
         String responseContent      =   getResponseString(response.getEntity().getContent());
         
-        System.out.println(responseContent);
+        return new JSONObject(responseContent);
     }
     
     public String getResponseString(InputStream stream) throws IOException
