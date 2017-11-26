@@ -6,12 +6,14 @@
 
 package com.kyleruss.imgsnippet.app;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.awt.AWTException;
 import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -36,7 +38,17 @@ public class ScreenshotManager
     
     public void uploadScreenshot(BufferedImage screenshot)
     {
+        APIManager apiManager   =   APIManager.getInstance();
         
+        try
+        {
+            apiManager.uploadImage(screenshot);
+        }
+        
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void handleScreenshot(BufferedImage screenshot) throws IOException
@@ -76,6 +88,15 @@ public class ScreenshotManager
         while(new File(dir + fileName).exists());
         
         return fileName;
+    }
+    
+    public String encodeImage(BufferedImage image) throws IOException
+    {
+        ByteArrayOutputStream byteStream    =   new ByteArrayOutputStream();
+        ImageIO.write(image, "jpeg", byteStream);
+        
+        byte[] imageBytes   =   byteStream.toByteArray();
+        return Base64.encode(imageBytes);
     }
     
     public void browseScreenshotDirectory()
