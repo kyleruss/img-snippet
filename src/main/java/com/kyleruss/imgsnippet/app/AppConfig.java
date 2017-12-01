@@ -24,6 +24,7 @@ public class AppConfig
     private String screenshotBind;
     private boolean uploadOnline;
     private String drawBind;
+    private String clientID;
     
     public AppConfig()
     {
@@ -94,4 +95,17 @@ public class AppConfig
     {
         this.drawBind = drawBind;
     }
+
+    public String getClientID() 
+    {
+        return clientID;
+    }
+
+    @XmlElement
+    public void setClientID(String clientID) 
+    {
+        this.clientID = clientID;
+    }
+    
+    
 }

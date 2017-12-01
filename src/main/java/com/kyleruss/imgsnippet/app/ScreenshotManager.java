@@ -43,8 +43,8 @@ public class ScreenshotManager
         
         try
         {
-            JSONObject response =   apiManager.uploadImage(screenshot);
-            System.out.println(response.get("data"));
+            JSONObject response =   apiManager.uploadImage(screenshot).getJSONObject("data");
+            System.out.println(response.get("link"));
         }
         
         catch(IOException e)

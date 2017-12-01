@@ -26,7 +26,6 @@ public class APIManager
 {
     public static final String IMG_UPLOAD_ENDP  =   "https://api.imgur.com/3/image";
     public static final String IMG_GET_ENDP     =   "https://api.imgur.com/3/image/";
-    public static final String CLIENT_ID        =   "5ee1ae88d9e1c42";
     
     private static APIManager instance;
     
@@ -42,11 +41,15 @@ public class APIManager
         params.add(new BasicNameValuePair("image", encodedImage));
         postRequest.setEntity(new UrlEncodedFormEntity(params));
         
-        String apiKey               =   "Client-ID " + CLIENT_ID;
+        String clientID             =   ConfigManager.getInstance().getAppConfig().getClientID();
+        String apiKey               =   "Client-ID " + clientID;
         postRequest.addHeader("Authorization", apiKey);
         
         HttpResponse response       =   client.execute(postRequest);
         String responseContent      =   getResponseString(response.getEntity().getContent());
+        
+        if(response.getStatusLine().getStatusCode() != 200)
+            throw new IOException("Upload error");
         
         return new JSONObject(responseContent);
     }
