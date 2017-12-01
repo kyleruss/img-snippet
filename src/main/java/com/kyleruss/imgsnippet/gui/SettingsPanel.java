@@ -44,8 +44,6 @@ public class SettingsPanel extends JPanel
         addSettingComponent(IMG_DIR_LABEL, imgDirInput);
         addSettingComponent(STORE_IMG_LABEL, storeImgCheck);
         addSettingComponent(UPLOAD_CAPTURE_LABEL, uploadImgCheck);
-        
-        initSettings();
     }
     
     private void addSettingComponent(String label, Component component)
@@ -81,7 +79,13 @@ public class SettingsPanel extends JPanel
     
     public void showSettingsPanel()
     {
-        JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION);
+        initSettings();
+        int option  =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(option == JOptionPane.OK_OPTION)
+            saveSettings();
+        
+        instance = null;
     }
     
     public static SettingsPanel getInstance()

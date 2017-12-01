@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <appConfig>
+    <clientID>5ee1ae88d9e1c42</clientID>
     <drawBind>SHIFT+D</drawBind>
     <imageDirectory>data/captures/</imageDirectory>
     <screenshotBind>SHIFT+S</screenshotBind>
-    <storeLocally>true</storeLocally>
+    <storeLocally>false</storeLocally>
     <uploadOnline>true</uploadOnline>
-	<clientID>5ee1ae88d9e1c42</clientID>
 </appConfig>
