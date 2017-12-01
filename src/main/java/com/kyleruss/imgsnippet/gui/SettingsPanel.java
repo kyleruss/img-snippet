@@ -27,8 +27,9 @@ public class SettingsPanel extends JPanel
     private JLabel snippetLabel, screenshotLabel;
     private JTextField imgDirInput;
     private JCheckBox storeImgCheck, uploadImgCheck;
+    private static SettingsPanel instance;
     
-    public SettingsPanel()
+    private SettingsPanel()
     {
         setLayout(new GridLayout(5, 2));
         
@@ -78,8 +79,14 @@ public class SettingsPanel extends JPanel
         confManager.saveAppConfig();
     }
     
-    public void openSettingsPanel()
+    public void showSettingsPanel()
     {
-        JOptionPane.showConfirmDialog(null, this);
+        JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION);
+    }
+    
+    public static SettingsPanel getInstance()
+    {
+        if(instance == null) instance   =   new SettingsPanel();
+        return instance;
     }
 }
