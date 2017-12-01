@@ -101,6 +101,7 @@ public class SnippetTray implements ActionListener
         
         else if(src == browseItem)
             ScreenshotManager.getInstance().browseScreenshotDirectory();
+        
     }
 
     public SystemTray getTray() 

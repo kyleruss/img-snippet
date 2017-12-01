@@ -7,7 +7,6 @@
 package com.kyleruss.imgsnippet.gui;
 
 import java.awt.Color;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -67,4 +66,5 @@ public class SnippetWindow extends JFrame
     {
         setVisible(false);
     }
+
 }

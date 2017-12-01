@@ -12,6 +12,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -27,7 +28,7 @@ public class SettingsPanel extends JPanel
     private JTextField imgDirInput;
     private JCheckBox storeImgCheck, uploadImgCheck;
     
-    private SettingsPanel()
+    public SettingsPanel()
     {
         setLayout(new GridLayout(5, 2));
         
@@ -65,10 +66,20 @@ public class SettingsPanel extends JPanel
     
     public void saveSettings()
     {
+        ConfigManager confManager   =   ConfigManager.getInstance();      
+        AppConfig config            =   confManager.getAppConfig();
         
+        config.setDrawBind(snippetLabel.getText());
+        config.setScreenshotBind(screenshotLabel.getText());
+        config.setImageDirectory(imgDirInput.getText());
+        config.setStoreLocally(storeImgCheck.isSelected());
+        config.setUploadOnline(uploadImgCheck.isSelected());
+        
+        confManager.saveAppConfig();
     }
     
     public void openSettingsPanel()
     {
+        JOptionPane.showConfirmDialog(null, this);
     }
 }
