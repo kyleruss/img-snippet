@@ -8,6 +8,7 @@ package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.AppManager;
+import com.kyleruss.imgsnippet.app.ConfigManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,15 +29,11 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javazoom.jl.player.Player;
 
-public class SnippetPanel extends JPanel implements ActionListener
+public class SnippetPanel extends JPanel 
 {
     public static final String SAVE_SUCC_MSG     =      "Screenshot Saved!";
     public static final String SAVE_FAIL_MSG     =      "Failed to save screenshot!";
@@ -134,11 +131,25 @@ public class SnippetPanel extends JPanel implements ActionListener
         {
             try
             {
+                AppConfig config                        =   ConfigManager.getInstance().getAppConfig();
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
-                screenshotManager.handleScreenshot(screenshot);
-                screenshotNotify(SAVE_SUCC_MSG, true);
-                playScreenshotSound();
+                AppManager.getInstance().getDisplay().hideFrame();
+                boolean isSaveScreenshot                =   true;
+                
+                if(config.isEnablePreview())
+                {
+                    int option          =   new ScreenshotPreviewPanel(screenshot).showPreviewPanel();
+                    isSaveScreenshot    =   option == ScreenshotPreviewPanel.SAVE_OPTION;
+                }
+                
+                
+                if(isSaveScreenshot)
+                {
+                    screenshotManager.handleScreenshot(screenshot);
+                    screenshotNotify(SAVE_SUCC_MSG, true);
+                    playScreenshotSound();
+                }
             }
             
             catch(Exception e)
@@ -180,12 +191,6 @@ public class SnippetPanel extends JPanel implements ActionListener
         g2d.dispose();
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        Object src  =   e.getSource();
-    }
-
     private class SnippetMouseListener extends MouseAdapter
     {
         @Override
@@ -199,7 +204,6 @@ public class SnippetPanel extends JPanel implements ActionListener
         {
             stopDrawingSnippet();
             saveDrawnScreenshot();
-            AppManager.getInstance().getDisplay().hideFrame();
         }
         
         @Override

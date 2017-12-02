@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 
 public class ScreenshotPreviewPanel extends JPanel
 {
+    public static final int SAVE_OPTION     =   0;
+    public static final int CANCEL_OPTION   =   1;
+    
     private final BufferedImage screenshot;
     
     public ScreenshotPreviewPanel(BufferedImage screenshot)
@@ -23,6 +26,7 @@ public class ScreenshotPreviewPanel extends JPanel
         setPreferredSize(new Dimension(screenshot.getWidth(), screenshot.getHeight()));
     }
     
+    @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -32,7 +36,8 @@ public class ScreenshotPreviewPanel extends JPanel
     
     public int showPreviewPanel()
     {
-        int option  =   JOptionPane.showConfirmDialog(null, this, "Screenshot Preview", JOptionPane.OK_CANCEL_OPTION);
+        String[] options    =   { "Save", "Cancel" };
+        int option  =   JOptionPane.showOptionDialog(null, this, "Screenshot Preview", 0, JOptionPane.PLAIN_MESSAGE, null, options, null);
         return option;
     }
 
