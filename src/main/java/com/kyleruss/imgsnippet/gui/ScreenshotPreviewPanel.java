@@ -6,18 +6,38 @@
 
 package com.kyleruss.imgsnippet.gui;
 
-public class ScreenshotPreviewPanel
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class ScreenshotPreviewPanel extends JPanel
 {
-    private static ScreenshotPreviewPanel instance;
+    private final BufferedImage screenshot;
     
-    private ScreenshotPreviewPanel()
+    public ScreenshotPreviewPanel(BufferedImage screenshot)
     {
+        this.screenshot     =   screenshot;
         
+        setPreferredSize(new Dimension(screenshot.getWidth(), screenshot.getHeight()));
     }
     
-    public static ScreenshotPreviewPanel getInstance()
+    public void paintComponent(Graphics g)
     {
-        if(instance == null) instance   =   new ScreenshotPreviewPanel();
-        return instance;
+        super.paintComponent(g);
+        
+        g.drawImage(screenshot, 0, 0, null);
+    }
+    
+    public int showPreviewPanel()
+    {
+        int option  =   JOptionPane.showConfirmDialog(null, this, "Screenshot Preview", JOptionPane.OK_CANCEL_OPTION);
+        return option;
+    }
+
+    public BufferedImage getScreenshot()
+    {
+        return screenshot;
     }
 }
