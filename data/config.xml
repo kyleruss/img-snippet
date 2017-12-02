@@ -6,4 +6,5 @@
     <screenshotBind>SHIFT+S</screenshotBind>
     <storeLocally>false</storeLocally>
     <uploadOnline>true</uploadOnline>
+	<enablePreview>true</enablePreview>
 </appConfig>

@@ -25,20 +25,22 @@ public class AppConfig
     private boolean uploadOnline;
     private String drawBind;
     private String clientID;
+    private boolean enablePreview;
     
     public AppConfig()
     {
-        this(DEFAULT_DIR, true, true, DEFAULT_SS_BIND, DEFAULT_DRAW_BIND);
+        this(DEFAULT_DIR, true, true, DEFAULT_SS_BIND, DEFAULT_DRAW_BIND, true);
     }
     
     public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline,
-    String screenshotBind, String drawBind)
+    String screenshotBind, String drawBind, boolean enablePreview)
     {
         this.imageDirectory     =   imageDirectory;
         this.storeLocally       =   storeLocally;
         this.screenshotBind     =   screenshotBind;
         this.uploadOnline       =   uploadOnline;
         this.drawBind           =   drawBind;
+        this.enablePreview      =   enablePreview;
     }
 
     public boolean isUploadOnline() 
@@ -106,6 +108,15 @@ public class AppConfig
     {
         this.clientID = clientID;
     }
-    
-    
+
+    public boolean isEnablePreview() 
+    {
+        return enablePreview;
+    }
+
+    @XmlElement
+    public void setEnablePreview(boolean enablePreview) 
+    {
+        this.enablePreview = enablePreview;
+    }
 }
