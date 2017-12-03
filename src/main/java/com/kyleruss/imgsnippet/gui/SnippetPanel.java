@@ -146,9 +146,9 @@ public class SnippetPanel extends JPanel
                 
                 if(isSaveScreenshot)
                 {
+                    playScreenshotSound();
                     screenshotManager.handleScreenshot(screenshot);
                     screenshotNotify(SAVE_SUCC_MSG, true);
-                    playScreenshotSound();
                 }
             }
             

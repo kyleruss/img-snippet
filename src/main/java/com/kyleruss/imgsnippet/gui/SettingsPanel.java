@@ -80,7 +80,7 @@ public class SettingsPanel extends JPanel
     public void showSettingsPanel()
     {
         initSettings();
-        int option  =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION);
+        int option  =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         
         if(option == JOptionPane.OK_OPTION)
             saveSettings();

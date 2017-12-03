@@ -2,9 +2,9 @@
 <appConfig>
     <clientID>5ee1ae88d9e1c42</clientID>
     <drawBind>SHIFT+D</drawBind>
+    <enablePreview>true</enablePreview>
     <imageDirectory>data/captures/</imageDirectory>
     <screenshotBind>SHIFT+S</screenshotBind>
     <storeLocally>false</storeLocally>
     <uploadOnline>true</uploadOnline>
-	<enablePreview>true</enablePreview>
 </appConfig>

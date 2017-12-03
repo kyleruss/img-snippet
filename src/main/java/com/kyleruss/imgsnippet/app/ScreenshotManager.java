@@ -12,6 +12,8 @@ import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,13 +46,22 @@ public class ScreenshotManager
         try
         {
             JSONObject response =   apiManager.uploadImage(screenshot).getJSONObject("data");
-            System.out.println(response.get("link"));
+            String link         =   response.getString("link");
+            
+            copyLinkToClipboard(link);
         }
         
         catch(IOException e)
         {
             e.printStackTrace();
         }
+    }
+    
+    public void copyLinkToClipboard(String link)
+    {
+        StringSelection selection   =   new StringSelection(link);
+        Clipboard clipboard         =   Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, null);
     }
     
     public void handleScreenshot(BufferedImage screenshot) throws IOException
