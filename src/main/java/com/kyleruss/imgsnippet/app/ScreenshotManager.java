@@ -34,12 +34,13 @@ public class ScreenshotManager
         final String EXTENSION  =   ".jpg";
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
         fileName                =   fileName == null? generateFileName() : fileName;
+        System.out.println(fileName);
         String path             =   appConfig.getImageDirectory() + fileName + EXTENSION;
         File file               =   new File(path);
         ImageIO.write(screenshot, "jpeg", file);
     }
     
-    public void uploadScreenshot(BufferedImage screenshot)
+    public String uploadScreenshot(BufferedImage screenshot)
     {
         APIManager apiManager   =   APIManager.getInstance();
         
@@ -49,11 +50,15 @@ public class ScreenshotManager
             String link         =   response.getString("link");
             
             copyLinkToClipboard(link);
+            
+            String trimmedLink  =   link.replace("https://i.imgur.com/", "").replace(".jpg", "");
+            return trimmedLink;
         }
         
         catch(IOException e)
         {
             e.printStackTrace();
+            return null;
         }
     }
     
@@ -67,12 +72,13 @@ public class ScreenshotManager
     public void handleScreenshot(BufferedImage screenshot) throws IOException
     {
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
-        
-        if(appConfig.isStoreLocally())
-            saveScreenshotToStorage(screenshot, null);
+        String screenshotLink   =   null;
         
         if(appConfig.isUploadOnline())
-            uploadScreenshot(screenshot);
+            screenshotLink      =   uploadScreenshot(screenshot);
+        
+        if(appConfig.isStoreLocally())
+            saveScreenshotToStorage(screenshot, screenshotLink);
     }
     
     public BufferedImage createScreenshotArea(Rectangle area) throws AWTException

@@ -5,6 +5,6 @@
     <enablePreview>true</enablePreview>
     <imageDirectory>data/captures/</imageDirectory>
     <screenshotBind>SHIFT+S</screenshotBind>
-    <storeLocally>false</storeLocally>
+    <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>
 </appConfig>
