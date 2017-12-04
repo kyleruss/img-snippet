@@ -20,8 +20,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -35,8 +33,8 @@ import javazoom.jl.player.Player;
 
 public class SnippetPanel extends JPanel 
 {
-    public static final String SAVE_SUCC_MSG     =      "Screenshot Saved!";
-    public static final String SAVE_FAIL_MSG     =      "Failed to save screenshot!";
+    public static final String SNIPPET_SOUND_FILE      =      "snippet-sound.mp3";
+    public static final String SUCCESS_SOUND_FILE      =      "success-sound.mp3";
     
     private SnippetMouseListener mouseListener;
     private SnippetKeyListener keyListener;
@@ -81,11 +79,12 @@ public class SnippetPanel extends JPanel
         isDrawingSnippet    =   false;
     }
     
-    public void playScreenshotSound()
+    public void playScreenshotSound(String soundFile)
     {
         try
         {
-            String soundFilePath            =   AppConfig.SOUNDS_DIR + "snippet-sound.mp3";
+            System.out.println(soundFile);
+            String soundFilePath            =   AppConfig.SOUNDS_DIR + soundFile;
             FileInputStream audioFileStream =   new FileInputStream(new File(soundFilePath));
             Player audioPlayer              =   new Player(audioFileStream);
             
@@ -115,14 +114,6 @@ public class SnippetPanel extends JPanel
         }
     }
     
-    public void screenshotNotify(String msg, boolean notify)
-    {
-        SnippetTray snippetTray         =   AppManager.getInstance().getDisplay().getSnippetTray();
-        TrayIcon trayIcon               =   snippetTray.getTrayIcon();
-        TrayIcon.MessageType msgType    =   notify? TrayIcon.MessageType.INFO : TrayIcon.MessageType.WARNING;   
-        
-        trayIcon.displayMessage("ImgSnippet", msg, msgType);
-    }
     
     public void saveDrawnScreenshot()
     {
@@ -135,6 +126,7 @@ public class SnippetPanel extends JPanel
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
                 AppManager.getInstance().getDisplay().hideFrame();
+                playScreenshotSound(SNIPPET_SOUND_FILE);
                 boolean isSaveScreenshot                =   true;
                 
                 if(config.isEnablePreview())
@@ -146,15 +138,14 @@ public class SnippetPanel extends JPanel
                 
                 if(isSaveScreenshot)
                 {
-                    playScreenshotSound();
                     screenshotManager.handleScreenshot(screenshot);
-                    screenshotNotify(SAVE_SUCC_MSG, true);
+                    playScreenshotSound(SUCCESS_SOUND_FILE);
                 }
             }
             
             catch(Exception e)
             {
-                JOptionPane.showMessageDialog(null, SAVE_FAIL_MSG);
+                JOptionPane.showMessageDialog(null, "Failed to save screenshit", "Error", JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         }
@@ -166,14 +157,14 @@ public class SnippetPanel extends JPanel
         {
              ScreenshotManager screenshotManager        =   ScreenshotManager.getInstance();
              BufferedImage screenshot                   =   screenshotManager.createMonitorScreenshot();
+             playScreenshotSound(SNIPPET_SOUND_FILE);
              screenshotManager.handleScreenshot(screenshot);
-             screenshotNotify(SAVE_SUCC_MSG, true);
-             playScreenshotSound();
+             playScreenshotSound(SUCCESS_SOUND_FILE);
         }
         
         catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null, SAVE_FAIL_MSG);
+            JOptionPane.showMessageDialog(null, "Failed to save screenshit", "Error", JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
         }
     }
