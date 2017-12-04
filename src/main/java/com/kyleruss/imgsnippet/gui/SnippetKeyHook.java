@@ -6,6 +6,11 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
+import com.kyleruss.imgsnippet.app.ScreenshotManager;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
@@ -22,11 +27,16 @@ public class SnippetKeyHook implements NativeKeyListener
     {
         try
         {
+            LogManager.getLogManager().reset();
+            Logger logger   =   Logger.getLogger(GlobalScreen.class.getPackage().getName());
+            logger.setLevel(Level.OFF);
+            
             GlobalScreen.registerNativeHook();
             GlobalScreen.addNativeKeyListener(this);
+            
         }
         
-        catch(NativeHookException e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }
@@ -37,8 +47,19 @@ public class SnippetKeyHook implements NativeKeyListener
     {
         int keyCode     =   e.getKeyCode();
         int modifiers   =   e.getModifiers();
+        String modText  =   NativeInputEvent.getModifiersText(modifiers);
         
-        //if(NativeInputEvent.getModifiersText(modifiers).equals("Ctrl") && NativeInputEvent.getModifiersText(modifiers).equals("Shift"))
+        if(modText.equals("Shift+Ctrl"))
+        {
+            if(keyCode == NativeKeyEvent.VC_1)
+                AppManager.getInstance().getDisplay().showFrame();
+            
+            else if(keyCode == NativeKeyEvent.VC_2)
+                AppManager.getInstance().getDisplay().getSnippetPanel().saveMonitorScreenshot();
+            
+            else if(keyCode == NativeKeyEvent.VC_3)
+                ScreenshotManager.getInstance().browseScreenshotDirectory();
+        }
     }
     
 
