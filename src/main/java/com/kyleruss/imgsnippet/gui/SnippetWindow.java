@@ -32,6 +32,7 @@ public class SnippetWindow extends JFrame
         setBackground(new Color(0, 255, 0, 1));
         getContentPane().add(snippetPanel);
         pack();
+        initKeyHook();
     }
     
     private void initLookAndFeel()
@@ -45,6 +46,12 @@ public class SnippetWindow extends JFrame
         {
             e.printStackTrace();
         }
+    }
+    
+    private void initKeyHook()
+    {
+        SnippetKeyHook hook     =   new SnippetKeyHook();
+        hook.registerHook();
     }
     
     public SnippetPanel getSnippetPanel()
