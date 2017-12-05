@@ -11,9 +11,7 @@ import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
 import org.jnativehook.NativeInputEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -21,7 +19,12 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 public class SnippetKeyHook implements NativeKeyListener
 {
-    public SnippetKeyHook() {}
+    private boolean shortcutBinding;
+    
+    public SnippetKeyHook() 
+    {
+        shortcutBinding     =   false;
+    }
     
     public void registerHook()
     {
@@ -40,6 +43,11 @@ public class SnippetKeyHook implements NativeKeyListener
         {
             e.printStackTrace();
         }
+    }
+    
+    public void toggleShortcutBinding()
+    {
+        shortcutBinding     =   !shortcutBinding;
     }
 
     @Override

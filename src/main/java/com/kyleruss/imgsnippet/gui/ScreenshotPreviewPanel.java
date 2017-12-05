@@ -6,16 +6,18 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppConfig;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ScreenshotPreviewPanel extends JPanel
 {
-    public static final int SAVE_OPTION     =   0;
-    public static final int CANCEL_OPTION   =   1;
+    public static final int SAVE_OPTION         =   0;
+    public static final int CANCEL_OPTION       =   1;
     
     private final BufferedImage screenshot;
     
@@ -37,7 +39,7 @@ public class ScreenshotPreviewPanel extends JPanel
     public int showPreviewPanel()
     {
         String[] options    =   { "Save", "Cancel" };
-        int option  =   JOptionPane.showOptionDialog(null, this, "Screenshot Preview", 0, JOptionPane.PLAIN_MESSAGE, null, options, null);
+        int option          =   JOptionPane.showOptionDialog(null, this, "Screenshot Preview", 0, JOptionPane.PLAIN_MESSAGE, null, options, null);
         return option;
     }
 

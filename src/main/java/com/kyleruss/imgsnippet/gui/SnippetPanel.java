@@ -83,7 +83,6 @@ public class SnippetPanel extends JPanel
     {
         try
         {
-            System.out.println(soundFile);
             String soundFilePath            =   AppConfig.SOUNDS_DIR + soundFile;
             FileInputStream audioFileStream =   new FileInputStream(new File(soundFilePath));
             Player audioPlayer              =   new Player(audioFileStream);

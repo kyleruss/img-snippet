@@ -20,11 +20,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class SnippetTray implements ActionListener
 {
-    public static final String TRAY_IMG_PATH    =   AppConfig.IMG_RES_DIR + "trayIcon.png";
+    private final String TRAY_IMG_PATH          =   "trayIcon.png";
     
     private SystemTray tray;
     private TrayIcon trayIcon;
@@ -45,7 +46,7 @@ public class SnippetTray implements ActionListener
             {
                 tray                =   SystemTray.getSystemTray();
                 trayMenu            =   new PopupMenu();   
-                BufferedImage image =   ImageIO.read(new File(TRAY_IMG_PATH));
+                BufferedImage image =   ImageIO.read(new File(AppConfig.IMG_RES_DIR + TRAY_IMG_PATH));
                 trayIcon            =   new TrayIcon(image, "Img-Snippet", trayMenu);
                 trayIcon.setImageAutoSize(true);
                 trayIcon.addActionListener(this);
@@ -69,7 +70,9 @@ public class SnippetTray implements ActionListener
             settingsItem    =   new MenuItem("Settings");
             screenshotItem  =   new MenuItem("Screenshot");
             drawCaptureItem =   new MenuItem("Snippet");
-
+            
+            String dir      =   AppConfig.IMG_RES_DIR;
+            
             trayMenu.add(drawCaptureItem);            
             trayMenu.add(screenshotItem);
             trayMenu.add(browseItem);

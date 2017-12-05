@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jnativehook.keyboard.NativeKeyEvent;
 
 public class SettingsPanel extends JPanel
 {
@@ -80,12 +81,17 @@ public class SettingsPanel extends JPanel
     public void showSettingsPanel()
     {
         initSettings();
-        int option  =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int option      =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
         
         if(option == JOptionPane.OK_OPTION)
             saveSettings();
         
         instance = null;
+    }
+    
+    public void registerShortcut(NativeKeyEvent keyEvent)
+    {
+        
     }
     
     public static SettingsPanel getInstance()
