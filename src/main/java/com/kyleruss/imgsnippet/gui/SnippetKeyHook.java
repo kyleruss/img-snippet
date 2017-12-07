@@ -47,7 +47,7 @@ public class SnippetKeyHook implements NativeKeyListener
     
     public void toggleShortcutBinding()
     {
-        shortcutBinding     =   !shortcutBinding;
+        shortcutBinding     =   true;
     }
 
     @Override
@@ -57,7 +57,14 @@ public class SnippetKeyHook implements NativeKeyListener
         int modifiers   =   e.getModifiers();
         String modText  =   NativeInputEvent.getModifiersText(modifiers);
         
-        if(modText.equals("Shift+Ctrl"))
+        System.out.println(shortcutBinding);
+        if(shortcutBinding)
+        {
+           // shortcutBinding =   false;
+            SettingsPanel.getInstance().registerShortcutCallback(e);
+        }
+        
+        else if(modText.equals("Shift+Ctrl"))
         {
             if(keyCode == NativeKeyEvent.VC_1)
                 AppManager.getInstance().getDisplay().showFrame();
@@ -68,6 +75,7 @@ public class SnippetKeyHook implements NativeKeyListener
             else if(keyCode == NativeKeyEvent.VC_3)
                 ScreenshotManager.getInstance().browseScreenshotDirectory();
         }
+        
     }
     
 

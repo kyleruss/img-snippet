@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.app;
 
+import com.kyleruss.imgsnippet.gui.KeybindBean;
 import java.io.File;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
@@ -16,6 +17,7 @@ public class ConfigManager
 {
     private static ConfigManager instance;
     private AppConfig appConfig;
+    private KeybindBean keybindConfig;
     
     private ConfigManager()
     {
@@ -57,6 +59,12 @@ public class ConfigManager
             JOptionPane.showMessageDialog(null, "Failed to save settings");
             e.printStackTrace();
         }
+    }
+    
+    
+    public KeybindBean getKeybindConfig()
+    {
+        return keybindConfig;
     }
     
     public AppConfig getAppConfig()

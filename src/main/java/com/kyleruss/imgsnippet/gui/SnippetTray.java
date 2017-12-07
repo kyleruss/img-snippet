@@ -29,8 +29,8 @@ public class SnippetTray implements ActionListener
     
     private SystemTray tray;
     private TrayIcon trayIcon;
-    private PopupMenu trayMenu;
-    private MenuItem exitItem, settingsItem, browseItem, screenshotItem, drawCaptureItem;
+    private PopupMenu trayMenu, aboutMenu;
+    private MenuItem exitItem, settingsItem, browseItem, screenshotItem, drawCaptureItem, authorItem, licenseItem;
     
     public SnippetTray()
     {
@@ -65,14 +65,20 @@ public class SnippetTray implements ActionListener
     {
         if(trayMenu != null)
         {
+            aboutMenu       =   new PopupMenu("About");
             exitItem        =   new MenuItem("Exit");
             browseItem      =   new MenuItem("Browse");
             settingsItem    =   new MenuItem("Settings");
             screenshotItem  =   new MenuItem("Screenshot");
             drawCaptureItem =   new MenuItem("Snippet");
+            authorItem      =   new MenuItem("Author");
+            licenseItem     =   new MenuItem("License");
             
-            String dir      =   AppConfig.IMG_RES_DIR;
+            aboutMenu.add(authorItem);
+            aboutMenu.add(licenseItem);
             
+            trayMenu.add(aboutMenu);
+            trayMenu.addSeparator();
             trayMenu.add(drawCaptureItem);            
             trayMenu.add(screenshotItem);
             trayMenu.add(browseItem);
@@ -85,6 +91,8 @@ public class SnippetTray implements ActionListener
             settingsItem.addActionListener(this);
             drawCaptureItem.addActionListener(this);
             screenshotItem.addActionListener(this);
+            authorItem.addActionListener(this);
+            licenseItem.addActionListener(this);
         }
     }
     
@@ -123,6 +131,4 @@ public class SnippetTray implements ActionListener
     {
         return trayMenu;
     }
-    
-    
 }

@@ -14,6 +14,7 @@ public class SnippetWindow extends JFrame
 {
     private SnippetPanel snippetPanel;
     private SnippetTray snippetTray;
+    private SnippetKeyHook keyHook;
     
     public SnippetWindow()
     {
@@ -50,8 +51,13 @@ public class SnippetWindow extends JFrame
     
     private void initKeyHook()
     {
-        SnippetKeyHook hook     =   new SnippetKeyHook();
-        hook.registerHook();
+        keyHook     =    new SnippetKeyHook();
+        keyHook.registerHook();
+    }
+    
+    public SnippetKeyHook getKeyHook()
+    {
+        return keyHook;
     }
     
     public SnippetPanel getSnippetPanel()

@@ -7,18 +7,26 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppConfig;
+import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jnativehook.NativeInputEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
-public class SettingsPanel extends JPanel
+public class SettingsPanel extends JPanel implements ActionListener
 {
+    private final int BINDING_NONE              =   -1;
+    private final int BINDING_SNIPPET           =   0;
+    private final int BINDING_SCREENSHOT        =   1;
     private final String DRAW_BIND_LABEL        =   "Snippet bind";
     private final String SS_BIND_LABEL          =   "Screenshot bind";
     private final String IMG_DIR_LABEL          =   "Capture Directory";
@@ -28,23 +36,32 @@ public class SettingsPanel extends JPanel
     private JLabel snippetLabel, screenshotLabel;
     private JTextField imgDirInput;
     private JCheckBox storeImgCheck, uploadImgCheck;
+    private int binding;
+    private KeybindBean tempKeybindBean;
+    private JButton snippetBindToggle, screenshotBindToggle;
     private static SettingsPanel instance;
     
     private SettingsPanel()
     {
         setLayout(new GridLayout(5, 2));
         
-        snippetLabel    =   new JLabel();
-        screenshotLabel =   new JLabel();
-        imgDirInput     =   new JTextField();
-        storeImgCheck   =   new JCheckBox();
-        uploadImgCheck  =   new JCheckBox();
+        snippetLabel            =   new JLabel();
+        screenshotLabel         =   new JLabel();
+        imgDirInput             =   new JTextField();
+        storeImgCheck           =   new JCheckBox();
+        uploadImgCheck          =   new JCheckBox();
+        snippetBindToggle       =   new JButton("Bind");
+        screenshotBindToggle    =   new JButton("Bind");   
+        binding                 =   BINDING_NONE;
         
-        addSettingComponent(DRAW_BIND_LABEL, snippetLabel);
-        addSettingComponent(SS_BIND_LABEL, screenshotLabel);
+        addSettingComponent(DRAW_BIND_LABEL, snippetBindToggle);
+        addSettingComponent(SS_BIND_LABEL, screenshotBindToggle);
         addSettingComponent(IMG_DIR_LABEL, imgDirInput);
         addSettingComponent(STORE_IMG_LABEL, storeImgCheck);
         addSettingComponent(UPLOAD_CAPTURE_LABEL, uploadImgCheck);
+
+        snippetBindToggle.addActionListener(this);
+        screenshotBindToggle.addActionListener(this);
     }
     
     private void addSettingComponent(String label, Component component)
@@ -78,20 +95,83 @@ public class SettingsPanel extends JPanel
         confManager.saveAppConfig();
     }
     
+    public void saveKeybindBean()
+    {
+        KeybindBean keybindConfig   =   ConfigManager.getInstance().getKeybindConfig();
+        
+        if(tempKeybindBean != null)
+        {
+            if(tempKeybindBean.getSnippetKeyEvent() != null)
+                keybindConfig.setSnippetKeyEvent(tempKeybindBean.getSnippetKeyEvent());
+            
+            if(tempKeybindBean.getScreenshotKeyEvent() != null)
+                keybindConfig.setScreenshotKeyEvent(tempKeybindBean.getScreenshotKeyEvent());
+        }
+    }
+    
+    
     public void showSettingsPanel()
     {
         initSettings();
         int option      =   JOptionPane.showConfirmDialog(null, this, "Settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
         
         if(option == JOptionPane.OK_OPTION)
+        {
             saveSettings();
+            saveKeybindBean();
+        }
         
-        instance = null;
+        tempKeybindBean =   null;
+        instance        =   null;
     }
     
-    public void registerShortcut(NativeKeyEvent keyEvent)
+    public void registerShortcut(int binding)
     {
+        this.binding    =   binding;
+        SnippetKeyHook hook =   AppManager.getInstance().getDisplay().getKeyHook();
+        hook.toggleShortcutBinding();
+    }
+    
+    public void registerShortcutCallback(NativeKeyEvent keyEvent)
+    {
+        if(tempKeybindBean == null) tempKeybindBean = new KeybindBean();
         
+        if(binding == BINDING_SNIPPET)
+        {
+            System.out.println(NativeInputEvent.getModifiersText(keyEvent.getModifiers()));
+            tempKeybindBean.setSnippetKeyEvent(keyEvent);
+        }
+        
+        else if(binding == BINDING_SCREENSHOT)
+            tempKeybindBean.setScreenshotKeyEvent(keyEvent);
+        
+    }
+    
+    private void toggleBindButton(JButton button, int binding)
+    {
+        if(this.binding != binding)
+        {
+            button.setText("Done");
+            registerShortcut(binding);
+        }
+        
+        else 
+        {
+            button.setText("Bind");
+            binding = BINDING_NONE;
+        }
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) 
+    {
+        Object src  =   e.getSource();
+        
+        if(src == snippetBindToggle)
+            toggleBindButton(snippetBindToggle, BINDING_SNIPPET);
+        
+        else if(src == screenshotBindToggle)
+            toggleBindButton(screenshotBindToggle, BINDING_SCREENSHOT);
     }
     
     public static SettingsPanel getInstance()
