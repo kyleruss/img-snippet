@@ -10,6 +10,7 @@ import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
@@ -96,6 +97,24 @@ public class SnippetTray implements ActionListener
         }
     }
     
+    public void showAuthorDialog()
+    {
+        
+    }
+    
+    public void showLicense()
+    {
+        try
+        {
+            Desktop.getDesktop().edit(new File("LICENSE.txt"));
+        }
+        
+        catch(IOException e)
+        {
+            JOptionPane.showMessageDialog(null, "Failed to open license");
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -115,6 +134,9 @@ public class SnippetTray implements ActionListener
      
         else if(src == settingsItem)
             SettingsPanel.getInstance().showSettingsPanel();
+        
+        else if(src == licenseItem)
+            showLicense();
     }
 
     public SystemTray getTray() 
