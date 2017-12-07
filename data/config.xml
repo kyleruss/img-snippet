@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <appConfig>
-    <clientID>5ee1ae88d9e1c42</clientID>
     <drawBind>SHIFT+D</drawBind>
     <enablePreview>true</enablePreview>
     <imageDirectory>data/captures/</imageDirectory>

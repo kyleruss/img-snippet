@@ -45,11 +45,11 @@ public class SnippetKeyHook implements NativeKeyListener
         }
     }
     
-    public void toggleShortcutBinding()
+    public void toggleShortcutBinding(boolean enable)
     {
-        shortcutBinding     =   true;
+        shortcutBinding     =   enable;
     }
-
+    
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) 
     {
@@ -57,7 +57,6 @@ public class SnippetKeyHook implements NativeKeyListener
         int modifiers   =   e.getModifiers();
         String modText  =   NativeInputEvent.getModifiersText(modifiers);
         
-        System.out.println(shortcutBinding);
         if(shortcutBinding)
         {
            // shortcutBinding =   false;

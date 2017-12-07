@@ -81,7 +81,7 @@ public class SettingsPanel extends JPanel implements ActionListener
         uploadImgCheck.setSelected(config.isUploadOnline());
     }
     
-    public void saveSettings()
+    public void setAppSettings()
     {
         ConfigManager confManager   =   ConfigManager.getInstance();      
         AppConfig config            =   confManager.getAppConfig();
@@ -91,11 +91,9 @@ public class SettingsPanel extends JPanel implements ActionListener
         config.setImageDirectory(imgDirInput.getText());
         config.setStoreLocally(storeImgCheck.isSelected());
         config.setUploadOnline(uploadImgCheck.isSelected());
-        
-        confManager.saveAppConfig();
     }
     
-    public void saveKeybindBean()
+    public void setKeybindBean()
     {
         KeybindBean keybindConfig   =   ConfigManager.getInstance().getKeybindConfig();
         
@@ -117,8 +115,9 @@ public class SettingsPanel extends JPanel implements ActionListener
         
         if(option == JOptionPane.OK_OPTION)
         {
-            saveSettings();
-            saveKeybindBean();
+            setAppSettings();
+            setKeybindBean();
+            ConfigManager.getInstance().saveSettings();
         }
         
         tempKeybindBean =   null;
@@ -129,7 +128,7 @@ public class SettingsPanel extends JPanel implements ActionListener
     {
         this.binding    =   binding;
         SnippetKeyHook hook =   AppManager.getInstance().getDisplay().getKeyHook();
-        hook.toggleShortcutBinding();
+        hook.toggleShortcutBinding(true);
     }
     
     public void registerShortcutCallback(NativeKeyEvent keyEvent)
@@ -138,7 +137,6 @@ public class SettingsPanel extends JPanel implements ActionListener
         
         if(binding == BINDING_SNIPPET)
         {
-            System.out.println(NativeInputEvent.getModifiersText(keyEvent.getModifiers()));
             tempKeybindBean.setSnippetKeyEvent(keyEvent);
         }
         
@@ -159,6 +157,8 @@ public class SettingsPanel extends JPanel implements ActionListener
         {
             button.setText("Bind");
             binding = BINDING_NONE;
+            SnippetKeyHook hook     =   AppManager.getInstance().getDisplay().getKeyHook();
+            hook.toggleShortcutBinding(false);
         }
     }
     
