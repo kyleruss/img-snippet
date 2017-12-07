@@ -99,7 +99,8 @@ public class SnippetTray implements ActionListener
     
     public void showAuthorDialog()
     {
-        
+        String authorText   =   "Img-Snippet 2017\nCreated by Kyle Russell\ngithub.com/kyleruss\n";
+        JOptionPane.showMessageDialog(null, authorText);
     }
     
     public void showLicense()
@@ -137,6 +138,9 @@ public class SnippetTray implements ActionListener
         
         else if(src == licenseItem)
             showLicense();
+        
+        else if(src == authorItem)
+            showAuthorDialog();
     }
 
     public SystemTray getTray() 
