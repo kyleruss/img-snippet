@@ -74,32 +74,30 @@ public class ConfigManager
     
     public void saveAppConfig() throws IOException, JAXBException
     {
-            File file                   =   new File(AppConfig.APP_CONFIG_PATH);
-            JAXBContext jaxbContext     =   JAXBContext.newInstance(AppConfig.class);
-            Marshaller marshaller       =   jaxbContext.createMarshaller();
-            
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(appConfig, file);
+        File file                   =   new File(AppConfig.APP_CONFIG_PATH);
+        JAXBContext jaxbContext     =   JAXBContext.newInstance(AppConfig.class);
+        Marshaller marshaller       =   jaxbContext.createMarshaller();
+
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(appConfig, file);
     }
     
     public void saveKeybindConfig() throws FileNotFoundException, IOException
     {
         File file                           =   new File(AppConfig.KEY_CONFIG_PATH);
         
-        try(ObjectOutputStream outputStream     =   new ObjectOutputStream(new FileOutputStream(file)))
-        {
-            outputStream.writeObject(keybindConfig);
-        }
+        ObjectOutputStream outputStream     =   new ObjectOutputStream(new FileOutputStream(file));
+        outputStream.writeObject(keybindConfig);
+        outputStream.close();
     }
     
     public void initKeybindConfig() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         File file                           =   new File(AppConfig.KEY_CONFIG_PATH);
         
-        try(ObjectInputStream inputStream       =   new ObjectInputStream(new FileInputStream(file)))
-        {
-            keybindConfig                       =   (KeybindBean) inputStream.readObject();
-        }
+        ObjectInputStream inputStream       =   new ObjectInputStream(new FileInputStream(file));
+        keybindConfig                       =   (KeybindBean) inputStream.readObject();
+        inputStream.close();
     }
     
     public KeybindBean getKeybindConfig()

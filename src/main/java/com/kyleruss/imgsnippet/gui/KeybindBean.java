@@ -6,38 +6,36 @@
 
 package com.kyleruss.imgsnippet.gui;
 
-import java.awt.event.KeyEvent;
-import org.jnativehook.keyboard.NativeKeyEvent;
+import java.io.Serializable;
 
-public class KeybindBean 
+public class KeybindBean implements Serializable
 {
-    private NativeKeyEvent snippetKeyEvent;
-    private NativeKeyEvent screenshotKeyEvent;
+    private SeriableKeyEvent snippetKeyEvent;
+    private SeriableKeyEvent screenshotKeyEvent;
     
     public KeybindBean()
     {
-        
+        snippetKeyEvent     =   new SeriableKeyEvent();
+        screenshotKeyEvent  =   new SeriableKeyEvent();
     }
 
-    public NativeKeyEvent getScreenshotKeyEvent() 
+    public SeriableKeyEvent getScreenshotKeyEvent() 
     {
         return screenshotKeyEvent;
     }
 
-    public void setScreenshotKeyEvent(NativeKeyEvent screenshotKeyEvent) 
+    public void setScreenshotKeyEvent(SeriableKeyEvent screenshotKeyEvent) 
     {
         this.screenshotKeyEvent = screenshotKeyEvent;
     }
 
-    public NativeKeyEvent getSnippetKeyEvent() 
+    public SeriableKeyEvent getSnippetKeyEvent() 
     {
         return snippetKeyEvent;
     }
 
-    public void setSnippetKeyEvent(NativeKeyEvent snippetKeyEvent)
+    public void setSnippetKeyEvent(SeriableKeyEvent snippetKeyEvent)
     {
         this.snippetKeyEvent = snippetKeyEvent;
     }
-    
-    
 }

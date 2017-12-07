@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.jnativehook.NativeInputEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 public class SettingsPanel extends JPanel implements ActionListener
@@ -135,14 +134,16 @@ public class SettingsPanel extends JPanel implements ActionListener
     {
         if(tempKeybindBean == null) tempKeybindBean = new KeybindBean();
         
-        if(binding == BINDING_SNIPPET)
+        if(binding == BINDING_SNIPPET || binding == BINDING_SCREENSHOT)
         {
-            tempKeybindBean.setSnippetKeyEvent(keyEvent);
+            SeriableKeyEvent seriableKeyEvent   =   new SeriableKeyEvent(keyEvent.getModifiers(), keyEvent.getKeyCode());
+            
+            if(binding == BINDING_SNIPPET)
+                tempKeybindBean.setSnippetKeyEvent(seriableKeyEvent);
+
+            else if(binding == BINDING_SCREENSHOT)
+                tempKeybindBean.setScreenshotKeyEvent(seriableKeyEvent);
         }
-        
-        else if(binding == BINDING_SCREENSHOT)
-            tempKeybindBean.setScreenshotKeyEvent(keyEvent);
-        
     }
     
     private void toggleBindButton(JButton button, int binding)
