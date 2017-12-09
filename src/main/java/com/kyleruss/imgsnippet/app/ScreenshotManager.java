@@ -34,7 +34,6 @@ public class ScreenshotManager
         final String EXTENSION  =   ".jpg";
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
         fileName                =   fileName == null? generateFileName() : fileName;
-        System.out.println(fileName);
         String path             =   appConfig.getImageDirectory() + fileName + EXTENSION;
         File file               =   new File(path);
         ImageIO.write(screenshot, "jpeg", file);

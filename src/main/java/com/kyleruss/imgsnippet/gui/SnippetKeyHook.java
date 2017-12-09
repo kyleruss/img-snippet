@@ -77,19 +77,6 @@ public class SnippetKeyHook implements NativeKeyListener
             else if(checkKeyInput(keyConf.getScreenshotKeyEvent(), e))
                 display.getSnippetPanel().saveMonitorScreenshot();
         }
-        
-/*        else if(modText.equals("Shift+Ctrl"))
-        {
-            if(keyCode == NativeKeyEvent.VC_1)
-                AppManager.getInstance().getDisplay().showFrame();
-            
-            else if(keyCode == NativeKeyEvent.VC_2)
-                AppManager.getInstance().getDisplay().getSnippetPanel().saveMonitorScreenshot();
-            
-            else if(keyCode == NativeKeyEvent.VC_3)
-                ScreenshotManager.getInstance().browseScreenshotDirectory();
-        } */
-        
     }
     
 
