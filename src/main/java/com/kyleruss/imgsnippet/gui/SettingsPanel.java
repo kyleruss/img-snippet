@@ -31,10 +31,11 @@ public class SettingsPanel extends JPanel implements ActionListener
     private final String IMG_DIR_LABEL          =   "Capture Directory";
     private final String STORE_IMG_LABEL        =   "Store captures";
     private final String UPLOAD_CAPTURE_LABEL   =   "Upload captures";
+    private final String RUN_STARTUP_LABEL      =   "Run on Startup";
     
     private JLabel snippetLabel, screenshotLabel;
     private JTextField imgDirInput;
-    private JCheckBox storeImgCheck, uploadImgCheck;
+    private JCheckBox storeImgCheck, uploadImgCheck, runStartupCheck;
     private int binding;
     private KeybindBean tempKeybindBean;
     private JButton snippetBindToggle, screenshotBindToggle;
@@ -43,13 +44,14 @@ public class SettingsPanel extends JPanel implements ActionListener
     
     private SettingsPanel()
     {
-        setLayout(new GridLayout(5, 2));
+        setLayout(new GridLayout(6, 2));
         
         snippetLabel            =   new JLabel();
         screenshotLabel         =   new JLabel();
         imgDirInput             =   new JTextField();
         storeImgCheck           =   new JCheckBox();
         uploadImgCheck          =   new JCheckBox();
+        runStartupCheck         =   new JCheckBox();
         snippetBindToggle       =   new JButton("Bind");
         screenshotBindToggle    =   new JButton("Bind");   
         activeBindButton        =   null;
@@ -60,6 +62,7 @@ public class SettingsPanel extends JPanel implements ActionListener
         addSettingComponent(IMG_DIR_LABEL, imgDirInput);
         addSettingComponent(STORE_IMG_LABEL, storeImgCheck);
         addSettingComponent(UPLOAD_CAPTURE_LABEL, uploadImgCheck);
+        addSettingComponent(RUN_STARTUP_LABEL, runStartupCheck);
 
         snippetBindToggle.addActionListener(this);
         screenshotBindToggle.addActionListener(this);
@@ -78,6 +81,7 @@ public class SettingsPanel extends JPanel implements ActionListener
         imgDirInput.setText(config.getImageDirectory());
         storeImgCheck.setSelected(config.isStoreLocally());
         uploadImgCheck.setSelected(config.isUploadOnline());
+        runStartupCheck.setSelected(config.isRunOnStartup());
     }
     
     public void setAppSettings()
@@ -88,6 +92,7 @@ public class SettingsPanel extends JPanel implements ActionListener
         config.setImageDirectory(imgDirInput.getText());
         config.setStoreLocally(storeImgCheck.isSelected());
         config.setUploadOnline(uploadImgCheck.isSelected());
+        config.setRunOnStartup(runStartupCheck.isSelected());
     }
     
     public void setKeybindBean()
