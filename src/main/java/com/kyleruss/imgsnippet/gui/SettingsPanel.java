@@ -38,6 +38,7 @@ public class SettingsPanel extends JPanel implements ActionListener
     private int binding;
     private KeybindBean tempKeybindBean;
     private JButton snippetBindToggle, screenshotBindToggle;
+    private JButton activeBindButton;
     private static SettingsPanel instance;
     
     private SettingsPanel()
@@ -51,6 +52,7 @@ public class SettingsPanel extends JPanel implements ActionListener
         uploadImgCheck          =   new JCheckBox();
         snippetBindToggle       =   new JButton("Bind");
         screenshotBindToggle    =   new JButton("Bind");   
+        activeBindButton        =   null;
         binding                 =   BINDING_NONE;
         
         addSettingComponent(DRAW_BIND_LABEL, snippetBindToggle);
@@ -150,12 +152,17 @@ public class SettingsPanel extends JPanel implements ActionListener
     {
         if(this.binding != binding)
         {
+            if(activeBindButton != null)
+                activeBindButton.setText("Bind");
+            
+            activeBindButton    =   button;
             button.setText("Done");
             registerShortcut(binding);
         }
         
         else 
         {
+            activeBindButton    =   null;
             button.setText("Bind");
             binding = BINDING_NONE;
             SnippetKeyHook hook     =   AppManager.getInstance().getDisplay().getKeyHook();

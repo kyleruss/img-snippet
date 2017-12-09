@@ -6,4 +6,5 @@
     <screenshotBind>SHIFT+S</screenshotBind>
     <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>
+	<clientID>5ee1ae88d9e1c42</clientID>
 </appConfig>
