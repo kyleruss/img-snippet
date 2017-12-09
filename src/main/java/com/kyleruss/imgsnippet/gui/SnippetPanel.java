@@ -88,6 +88,7 @@ public class SnippetPanel extends JPanel
             Player audioPlayer              =   new Player(audioFileStream);
             
             audioPlayer.play();
+            audioFileStream.close();
         }
         
         catch(Exception e)

@@ -75,8 +75,6 @@ public class SettingsPanel extends JPanel implements ActionListener
     {
         AppConfig config    =   ConfigManager.getInstance().getAppConfig();
         
-        snippetLabel.setText(config.getDrawBind());
-        screenshotLabel.setText(config.getScreenshotBind());
         imgDirInput.setText(config.getImageDirectory());
         storeImgCheck.setSelected(config.isStoreLocally());
         uploadImgCheck.setSelected(config.isUploadOnline());
@@ -87,8 +85,6 @@ public class SettingsPanel extends JPanel implements ActionListener
         ConfigManager confManager   =   ConfigManager.getInstance();      
         AppConfig config            =   confManager.getAppConfig();
         
-        config.setDrawBind(snippetLabel.getText());
-        config.setScreenshotBind(screenshotLabel.getText());
         config.setImageDirectory(imgDirInput.getText());
         config.setStoreLocally(storeImgCheck.isSelected());
         config.setUploadOnline(uploadImgCheck.isSelected());

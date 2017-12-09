@@ -6,11 +6,9 @@
 
 package com.kyleruss.imgsnippet.gui;
 
-import com.kyleruss.imgsnippet.app.AppConfig;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 

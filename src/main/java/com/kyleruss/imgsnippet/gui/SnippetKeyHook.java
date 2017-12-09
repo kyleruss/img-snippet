@@ -60,9 +60,6 @@ public class SnippetKeyHook implements NativeKeyListener
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) 
     {
-        int keyCode             =   e.getKeyCode();
-        int modifiers           =   e.getModifiers();
-        String modText          =   NativeInputEvent.getModifiersText(modifiers);
         SnippetWindow display   =   AppManager.getInstance().getDisplay();
         KeybindBean keyConf     =   ConfigManager.getInstance().getKeybindConfig();
         
