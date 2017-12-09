@@ -7,6 +7,7 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppManager;
+import com.kyleruss.imgsnippet.app.ConfigManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -50,20 +51,34 @@ public class SnippetKeyHook implements NativeKeyListener
         shortcutBinding     =   enable;
     }
     
+    private boolean checkKeyInput(SeriableKeyEvent confKeyEvent, NativeKeyEvent inputKeyEvent)
+    {
+        return confKeyEvent.getModifiers() == inputKeyEvent.getModifiers()
+               && confKeyEvent.getKeyCode() == inputKeyEvent.getKeyCode();
+    }
+    
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) 
     {
-        int keyCode     =   e.getKeyCode();
-        int modifiers   =   e.getModifiers();
-        String modText  =   NativeInputEvent.getModifiersText(modifiers);
+        int keyCode             =   e.getKeyCode();
+        int modifiers           =   e.getModifiers();
+        String modText          =   NativeInputEvent.getModifiersText(modifiers);
+        SnippetWindow display   =   AppManager.getInstance().getDisplay();
+        KeybindBean keyConf     =   ConfigManager.getInstance().getKeybindConfig();
         
         if(shortcutBinding)
-        {
-           // shortcutBinding =   false;
             SettingsPanel.getInstance().registerShortcutCallback(e);
+        
+        else
+        {
+            if(checkKeyInput(keyConf.getSnippetKeyEvent(), e))
+                display.showFrame();
+            
+            else if(checkKeyInput(keyConf.getScreenshotKeyEvent(), e))
+                display.getSnippetPanel().saveMonitorScreenshot();
         }
         
-        else if(modText.equals("Shift+Ctrl"))
+/*        else if(modText.equals("Shift+Ctrl"))
         {
             if(keyCode == NativeKeyEvent.VC_1)
                 AppManager.getInstance().getDisplay().showFrame();
@@ -73,7 +88,7 @@ public class SnippetKeyHook implements NativeKeyListener
             
             else if(keyCode == NativeKeyEvent.VC_3)
                 ScreenshotManager.getInstance().browseScreenshotDirectory();
-        }
+        } */
         
     }
     
