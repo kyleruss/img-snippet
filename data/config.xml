@@ -3,7 +3,6 @@
     <clientID>5ee1ae88d9e1c42</clientID>
     <enablePreview>true</enablePreview>
     <imageDirectory>data/captures/</imageDirectory>
-    <runOnStartup>true</runOnStartup>
     <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>
 </appConfig>

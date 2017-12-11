@@ -23,14 +23,13 @@ public class AppConfig
     private boolean uploadOnline;
     private String clientID;
     private boolean enablePreview;
-    private boolean runOnStartup;
     
     public AppConfig()
     {
-        this(DEFAULT_DIR, true, true, true, true);
+        this(DEFAULT_DIR, true, true, true);
     }
     
-    public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline , boolean enablePreview, boolean runOnStartup)
+    public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline , boolean enablePreview)
     {
         this.imageDirectory     =   imageDirectory;
         this.storeLocally       =   storeLocally;
@@ -91,16 +90,5 @@ public class AppConfig
     public void setEnablePreview(boolean enablePreview) 
     {
         this.enablePreview = enablePreview;
-    }
-
-    public boolean isRunOnStartup() 
-    {
-        return runOnStartup;
-    }
-
-    @XmlElement
-    public void setRunOnStartup(boolean runOnStartup)
-    {
-        this.runOnStartup = runOnStartup;
     }
 }
