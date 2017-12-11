@@ -42,4 +42,13 @@
             <version>2.0.2</version>
         </dependency>
     </dependencies>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/data</directory>
+                <targetPath>${basedir}/target/data</targetPath>
+            </resource>
+        </resources>
+    </build>
 </project>
