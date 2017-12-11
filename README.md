@@ -6,7 +6,7 @@ When a screenshot or snippet is taken, the image can be viewed in the captures d
 Users can change the bindings, capture directory, interface settings etc. in the application settings from the tray menu.
 
 
-## Keybinds
+### Keybinds
 
 Create Snippet: Ctrl + Shift + 1
 
