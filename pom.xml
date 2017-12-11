@@ -49,6 +49,11 @@
                 <directory>${basedir}/data</directory>
                 <targetPath>${basedir}/target/data</targetPath>
             </resource>
+            
+            <resource>
+                <directory>${basedir}/captures</directory>
+                <targetPath>${basedir}/target/captures</targetPath>
+            </resource>
         </resources>
         
         <plugins>

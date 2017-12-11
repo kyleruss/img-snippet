@@ -144,7 +144,7 @@ public class SnippetPanel extends JPanel
             
             catch(Exception e)
             {
-                JOptionPane.showMessageDialog(null, "Failed to save screenshit", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Failed to save screenshot", "Error", JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
             }
         }
@@ -163,7 +163,7 @@ public class SnippetPanel extends JPanel
         
         catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null, "Failed to save screenshit", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to save screenshot", "Error", JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
         }
     }
