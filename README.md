@@ -9,6 +9,7 @@ Users can change the bindings, capture directory, interface settings etc. in the
 ## Keybinds
 
 Create Snippet: Ctrl + Shift + 1
+
 Take Screenshot: Ctrl + Shift + 2
 
 Note: key binds can be changed in settings
