@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -57,7 +58,7 @@ public class SnippetKeyHook implements NativeKeyListener
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) 
     {
-        SnippetWindow display   =   SnippetWindow.getInstance();
+        AppManager display   =   AppManager.getInstance();
         KeybindBean keyConf     =   ConfigManager.getInstance().getKeybindConfig();
         
         if(shortcutBinding)

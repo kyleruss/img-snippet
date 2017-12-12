@@ -4,25 +4,29 @@
 //  github.com/kyleruss/img-snippet
 //====================================
 
-package com.kyleruss.imgsnippet.gui;
+package com.kyleruss.imgsnippet.app;
 
+import com.kyleruss.imgsnippet.gui.SnippetKeyHook;
+import com.kyleruss.imgsnippet.gui.SnippetPanel;
+import com.kyleruss.imgsnippet.gui.SnippetTray;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-public class SnippetWindow extends JFrame
+public class AppManager extends JFrame
 {
     private SnippetPanel snippetPanel;
     private SnippetKeyHook keyHook;
     
-    private static SnippetWindow instance;
+    private static AppManager instance;
     
-    public SnippetWindow()
+    public AppManager()
     {
         super("imgSnippet");
         
         initFrame();
+        initKeyHook();
         initLookAndFeel();
         new SnippetTray().init();
     }
@@ -35,9 +39,7 @@ public class SnippetWindow extends JFrame
         setBackground(new Color(0, 255, 0, 1));
         setIconImage(new ImageIcon("data/images/trayIcon.png").getImage());
         getContentPane().add(snippetPanel);
-        
         pack();
-        initKeyHook();
     }
     
     private void initLookAndFeel()
@@ -80,16 +82,16 @@ public class SnippetWindow extends JFrame
     
     public static void createInstance()
     {
-        instance    =   new SnippetWindow();
+        instance    =   new AppManager();
     }
     
-    public static SnippetWindow getInstance()
+    public static AppManager getInstance()
     {
         return instance;
     }
 
     public static void main(String[] args)
     {
-        SnippetWindow.createInstance();
+        AppManager.createInstance();
     }
 }

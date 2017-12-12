@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.AWTException;
@@ -141,10 +142,10 @@ public class SnippetTray implements ActionListener
             System.exit(0);
         
         else if(src == drawCaptureItem)
-            SnippetWindow.getInstance().showFrame();
+            AppManager.getInstance().showFrame();
         
         else if(src == screenshotItem)
-            SnippetWindow.getInstance().getSnippetPanel().saveMonitorScreenshot();
+            AppManager.getInstance().getSnippetPanel().saveMonitorScreenshot();
         
         else if(src == browseItem)
             ScreenshotManager.getInstance().browseScreenshotDirectory();

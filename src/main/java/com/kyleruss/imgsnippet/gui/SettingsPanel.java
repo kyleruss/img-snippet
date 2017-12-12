@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import java.awt.Component;
@@ -120,7 +121,7 @@ public class SettingsPanel extends JPanel implements ActionListener
     public void registerShortcut(int binding)
     {
         this.binding    =   binding;
-        SnippetKeyHook hook =   SnippetWindow.getInstance().getKeyHook();
+        SnippetKeyHook hook =   AppManager.getInstance().getKeyHook();
         hook.toggleShortcutBinding(true);
     }
     
@@ -157,7 +158,7 @@ public class SettingsPanel extends JPanel implements ActionListener
             activeBindButton    =   null;
             button.setText("Bind");
             binding = BINDING_NONE;
-            SnippetKeyHook hook     =   SnippetWindow.getInstance().getKeyHook();
+            SnippetKeyHook hook     =   AppManager.getInstance().getKeyHook();
             hook.toggleShortcutBinding(false);
         }
     }

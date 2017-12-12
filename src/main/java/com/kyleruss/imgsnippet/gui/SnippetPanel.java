@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
@@ -118,7 +119,7 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
                 AppConfig config                        =   ConfigManager.getInstance().getAppConfig();
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
-                SnippetWindow.getInstance().hideFrame();
+                AppManager.getInstance().hideFrame();
                 playScreenshotSound(false);
                 boolean isSaveScreenshot                =   true;
                 
@@ -200,7 +201,7 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         int keyCode =   e.getKeyCode();
 
         if(keyCode == KeyEvent.VK_ESCAPE)
-            SnippetWindow.getInstance().hideFrame();
+            AppManager.getInstance().hideFrame();
     }
         
     @Override
