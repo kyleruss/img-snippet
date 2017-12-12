@@ -12,12 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class AppConfig
 {
-    public static final String APP_CONFIG_PATH      =   "data/config.xml";
-    public static final String KEY_CONFIG_PATH      =   "data/keybinds.conf";
-    public static final String SOUNDS_DIR           =   "data/sounds/";
-    public static final String IMG_RES_DIR          =   "data/images/";
-    public static final String DEFAULT_DIR          =   "captures/";
-    
     private String imageDirectory;
     private boolean storeLocally;
     private boolean uploadOnline;
@@ -26,7 +20,7 @@ public class AppConfig
     
     public AppConfig()
     {
-        this(DEFAULT_DIR, true, true, true);
+        this("captures/", true, true, true);
     }
     
     public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline , boolean enablePreview)

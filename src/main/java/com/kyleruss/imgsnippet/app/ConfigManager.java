@@ -66,7 +66,7 @@ public class ConfigManager
     
     public void initAppConfig() throws JAXBException
     {
-        File file                   =   new File(AppConfig.APP_CONFIG_PATH);
+        File file                   =   new File("data/config.xml");
         JAXBContext jaxbContext     =   JAXBContext.newInstance(AppConfig.class);
         Unmarshaller unmarshaller   =   jaxbContext.createUnmarshaller();
         appConfig                   =   (AppConfig) unmarshaller.unmarshal(file);
@@ -74,7 +74,7 @@ public class ConfigManager
     
     public void saveAppConfig() throws IOException, JAXBException
     {
-        File file                   =   new File(AppConfig.APP_CONFIG_PATH);
+        File file                   =   new File("data/config.xml");
         JAXBContext jaxbContext     =   JAXBContext.newInstance(AppConfig.class);
         Marshaller marshaller       =   jaxbContext.createMarshaller();
 
@@ -84,7 +84,7 @@ public class ConfigManager
     
     public void saveKeybindConfig() throws FileNotFoundException, IOException
     {
-        File file                           =   new File(AppConfig.KEY_CONFIG_PATH);
+        File file                           =   new File("data/keybinds.conf");
         
         ObjectOutputStream outputStream     =   new ObjectOutputStream(new FileOutputStream(file));
         outputStream.writeObject(keybindConfig);
@@ -93,7 +93,7 @@ public class ConfigManager
     
     public void initKeybindConfig() throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        File file                           =   new File(AppConfig.KEY_CONFIG_PATH);
+        File file                           =   new File("data/keybinds.conf");
         
         ObjectInputStream inputStream       =   new ObjectInputStream(new FileInputStream(file));
         keybindConfig                       =   (KeybindBean) inputStream.readObject();

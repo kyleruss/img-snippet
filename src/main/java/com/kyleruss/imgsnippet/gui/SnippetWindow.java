@@ -6,7 +6,6 @@
 
 package com.kyleruss.imgsnippet.gui;
 
-import com.kyleruss.imgsnippet.app.AppConfig;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,8 +14,9 @@ import javax.swing.UIManager;
 public class SnippetWindow extends JFrame
 {
     private SnippetPanel snippetPanel;
-    private SnippetTray snippetTray;
     private SnippetKeyHook keyHook;
+    
+    private static SnippetWindow instance;
     
     public SnippetWindow()
     {
@@ -24,7 +24,7 @@ public class SnippetWindow extends JFrame
         
         initFrame();
         initLookAndFeel();
-        snippetTray     =   new SnippetTray();
+        new SnippetTray().init();
     }
     
     private void initFrame()
@@ -33,7 +33,7 @@ public class SnippetWindow extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setBackground(new Color(0, 255, 0, 1));
-        setIconImage(new ImageIcon(AppConfig.IMG_RES_DIR + "trayIcon.png").getImage());
+        setIconImage(new ImageIcon("data/images/trayIcon.png").getImage());
         getContentPane().add(snippetPanel);
         
         pack();
@@ -55,8 +55,7 @@ public class SnippetWindow extends JFrame
     
     private void initKeyHook()
     {
-        keyHook     =    new SnippetKeyHook();
-        keyHook.registerHook();
+        new SnippetKeyHook().registerHook();
     }
     
     public SnippetKeyHook getKeyHook()
@@ -69,11 +68,6 @@ public class SnippetWindow extends JFrame
         return snippetPanel;
     }
     
-    public SnippetTray getSnippetTray()
-    {
-        return snippetTray;
-    }
-    
     public void showFrame()
     {
         setVisible(true);
@@ -83,5 +77,19 @@ public class SnippetWindow extends JFrame
     {
         setVisible(false);
     }
+    
+    public static void createInstance()
+    {
+        instance    =   new SnippetWindow();
+    }
+    
+    public static SnippetWindow getInstance()
+    {
+        return instance;
+    }
 
+    public static void main(String[] args)
+    {
+        SnippetWindow.createInstance();
+    }
 }

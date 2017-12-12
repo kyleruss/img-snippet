@@ -7,7 +7,6 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppConfig;
-import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.Color;
@@ -21,8 +20,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,13 +30,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javazoom.jl.player.Player;
 
-public class SnippetPanel extends JPanel 
+public class SnippetPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener
 {
-    public static final String SNIPPET_SOUND_FILE      =      "snippet-sound.mp3";
-    public static final String SUCCESS_SOUND_FILE      =      "success-sound.mp3";
-    
-    private SnippetMouseListener mouseListener;
-    private SnippetKeyListener keyListener;
     private boolean isDrawingSnippet;
     private SnippetArea snippetArea;
     
@@ -45,17 +40,15 @@ public class SnippetPanel extends JPanel
         initDimensions();
         setOpaque(false);
     
-        mouseListener           =   new SnippetMouseListener();
-        keyListener             =   new SnippetKeyListener();
         isDrawingSnippet        =   false;
         snippetArea             =   null;
         
         setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         setFocusable(true);
         requestFocus();
-        addMouseListener(mouseListener);
-        addMouseMotionListener(mouseListener);
-        addKeyListener(keyListener);
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        addKeyListener(this);
     }
     
     private void initDimensions()
@@ -78,11 +71,12 @@ public class SnippetPanel extends JPanel
         isDrawingSnippet    =   false;
     }
     
-    public void playScreenshotSound(String soundFile)
+    public void playScreenshotSound(boolean successSound)
     {
         try
         {
-            String soundFilePath            =   AppConfig.SOUNDS_DIR + soundFile;
+            String soundFile                =   successSound? "success-sound.mp3" : "snippet-sound.mp3";
+            String soundFilePath            =   "data/sounds/" + soundFile;
             FileInputStream audioFileStream =   new FileInputStream(new File(soundFilePath));
             Player audioPlayer              =   new Player(audioFileStream);
             
@@ -124,8 +118,8 @@ public class SnippetPanel extends JPanel
                 AppConfig config                        =   ConfigManager.getInstance().getAppConfig();
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
-                AppManager.getInstance().getDisplay().hideFrame();
-                playScreenshotSound(SNIPPET_SOUND_FILE);
+                SnippetWindow.getInstance().hideFrame();
+                playScreenshotSound(false);
                 boolean isSaveScreenshot                =   true;
                 
                 if(config.isEnablePreview())
@@ -138,7 +132,7 @@ public class SnippetPanel extends JPanel
                 if(isSaveScreenshot)
                 {
                     screenshotManager.handleScreenshot(screenshot);
-                    playScreenshotSound(SUCCESS_SOUND_FILE);
+                    playScreenshotSound(true);
                 }
             }
             
@@ -156,9 +150,9 @@ public class SnippetPanel extends JPanel
         {
              ScreenshotManager screenshotManager        =   ScreenshotManager.getInstance();
              BufferedImage screenshot                   =   screenshotManager.createMonitorScreenshot();
-             playScreenshotSound(SNIPPET_SOUND_FILE);
+             playScreenshotSound(false);
              screenshotManager.handleScreenshot(screenshot);
-             playScreenshotSound(SUCCESS_SOUND_FILE);
+             playScreenshotSound(true);
         }
         
         catch(Exception e)
@@ -181,43 +175,49 @@ public class SnippetPanel extends JPanel
         g2d.dispose();
     }
     
-    private class SnippetMouseListener extends MouseAdapter
+    @Override
+    public void mousePressed(MouseEvent e)
     {
-        @Override
-        public void mousePressed(MouseEvent e)
-        {
-            startDrawingSnippet(e.getPoint());
-        }
-        
-        @Override
-        public void mouseReleased(MouseEvent e)
-        {
-            stopDrawingSnippet();
-            saveDrawnScreenshot();
-        }
-        
-        @Override
-        public void mouseDragged(MouseEvent e)
-        {
-            updateArea(e.getPoint());
-        }
+        startDrawingSnippet(e.getPoint());
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+        stopDrawingSnippet();
+        saveDrawnScreenshot();
     }
     
-    private class SnippetKeyListener implements KeyListener
+    @Override
+    public void mouseDragged(MouseEvent e)
     {
-        @Override
-        public void keyPressed(KeyEvent e) 
-        {
-            int keyCode =   e.getKeyCode();
-
-            if(keyCode == KeyEvent.VK_ESCAPE)
-                AppManager.getInstance().getDisplay().hideFrame();
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {}
-
-        @Override
-        public void keyReleased(KeyEvent e) {}
+        updateArea(e.getPoint());
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) 
+    {
+        int keyCode =   e.getKeyCode();
+
+        if(keyCode == KeyEvent.VK_ESCAPE)
+            SnippetWindow.getInstance().hideFrame();
+    }
+        
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+    
+    @Override
+    public void mouseMoved(MouseEvent e) {}
+        
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }

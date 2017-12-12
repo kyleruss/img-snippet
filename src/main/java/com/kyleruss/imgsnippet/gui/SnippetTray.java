@@ -7,7 +7,6 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppConfig;
-import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ScreenshotManager;
 import java.awt.AWTException;
 import java.awt.Desktop;
@@ -26,15 +25,14 @@ import javax.swing.JOptionPane;
 
 public class SnippetTray implements ActionListener
 {
-    private final String TRAY_IMG_PATH          =   "trayIcon.png";
-    
-    private SystemTray tray;
     private TrayIcon trayIcon;
     private PopupMenu trayMenu, aboutMenu;
     private MenuItem exitItem, settingsItem, browseItem, screenshotItem;
     private MenuItem drawCaptureItem, authorItem, licenseItem, repositoryItem;
     
-    public SnippetTray()
+    public SnippetTray() {}
+    
+    public void init()
     {
         initTray();
         initMenuItems();
@@ -46,13 +44,12 @@ public class SnippetTray implements ActionListener
         {
             try
             {
-                tray                =   SystemTray.getSystemTray();
                 trayMenu            =   new PopupMenu();   
-                BufferedImage image =   ImageIO.read(new File(AppConfig.IMG_RES_DIR + TRAY_IMG_PATH));
+                BufferedImage image =   ImageIO.read(new File("data/images/trayIcon.png"));
                 trayIcon            =   new TrayIcon(image, "Img-Snippet", trayMenu);
                 trayIcon.setImageAutoSize(true);
                 trayIcon.addActionListener(this);
-                tray.add(trayIcon);
+                SystemTray.getSystemTray().add(trayIcon);
             }
             
             catch(IOException | AWTException e)
@@ -144,10 +141,10 @@ public class SnippetTray implements ActionListener
             System.exit(0);
         
         else if(src == drawCaptureItem)
-            AppManager.getInstance().getDisplay().showFrame();
+            SnippetWindow.getInstance().showFrame();
         
         else if(src == screenshotItem)
-            AppManager.getInstance().getDisplay().getSnippetPanel().saveMonitorScreenshot();
+            SnippetWindow.getInstance().getSnippetPanel().saveMonitorScreenshot();
         
         else if(src == browseItem)
             ScreenshotManager.getInstance().browseScreenshotDirectory();
@@ -163,11 +160,6 @@ public class SnippetTray implements ActionListener
         
         else if(src == repositoryItem)
             showRepository();
-    }
-
-    public SystemTray getTray() 
-    {
-        return tray;
     }
 
     public TrayIcon getTrayIcon() 

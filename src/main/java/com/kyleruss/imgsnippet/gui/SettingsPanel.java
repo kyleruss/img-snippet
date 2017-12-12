@@ -7,7 +7,6 @@
 package com.kyleruss.imgsnippet.gui;
 
 import com.kyleruss.imgsnippet.app.AppConfig;
-import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.ConfigManager;
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -31,7 +30,6 @@ public class SettingsPanel extends JPanel implements ActionListener
     private final String IMG_DIR_LABEL          =   "Capture Directory";
     private final String STORE_IMG_LABEL        =   "Store captures";
     private final String UPLOAD_CAPTURE_LABEL   =   "Upload captures";
-    private final String RUN_STARTUP_LABEL      =   "Run on Startup";
     
     private JTextField imgDirInput;
     private JCheckBox storeImgCheck, uploadImgCheck;
@@ -122,7 +120,7 @@ public class SettingsPanel extends JPanel implements ActionListener
     public void registerShortcut(int binding)
     {
         this.binding    =   binding;
-        SnippetKeyHook hook =   AppManager.getInstance().getDisplay().getKeyHook();
+        SnippetKeyHook hook =   SnippetWindow.getInstance().getKeyHook();
         hook.toggleShortcutBinding(true);
     }
     
@@ -159,7 +157,7 @@ public class SettingsPanel extends JPanel implements ActionListener
             activeBindButton    =   null;
             button.setText("Bind");
             binding = BINDING_NONE;
-            SnippetKeyHook hook     =   AppManager.getInstance().getDisplay().getKeyHook();
+            SnippetKeyHook hook     =   SnippetWindow.getInstance().getKeyHook();
             hook.toggleShortcutBinding(false);
         }
     }

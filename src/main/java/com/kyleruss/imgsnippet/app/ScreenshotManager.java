@@ -120,7 +120,6 @@ public class ScreenshotManager
     public void browseScreenshotDirectory()
     {
         String dirPath      =   ConfigManager.getInstance().getAppConfig().getImageDirectory();
-        dirPath             =   dirPath.equals(AppConfig.DEFAULT_DIR)? System.getProperty("user.dir") + "\\" + dirPath: dirPath;
         File dir            =   new File(dirPath);
         Desktop desktop     =   Desktop.getDesktop();
         
