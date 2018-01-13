@@ -39,6 +39,7 @@ public class AppManager extends JFrame
         setBackground(new Color(0, 255, 0, 1));
         setIconImage(new ImageIcon("data/images/trayIcon.png").getImage());
         getContentPane().add(snippetPanel);
+        setAlwaysOnTop(true);
         pack();
     }
     
@@ -73,6 +74,8 @@ public class AppManager extends JFrame
     public void showFrame()
     {
         setVisible(true);
+        toFront();
+        snippetPanel.requestFocusInWindow();
     }
     
     public void hideFrame()

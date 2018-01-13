@@ -35,7 +35,6 @@ public class SnippetKeyHook implements NativeKeyListener
             
             GlobalScreen.registerNativeHook();
             GlobalScreen.addNativeKeyListener(this);
-            
         }
         
         catch(Exception e)
@@ -58,7 +57,7 @@ public class SnippetKeyHook implements NativeKeyListener
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) 
     {
-        AppManager display   =   AppManager.getInstance();
+        AppManager display      =   AppManager.getInstance();
         KeybindBean keyConf     =   ConfigManager.getInstance().getKeybindConfig();
         
         if(shortcutBinding)
@@ -71,6 +70,9 @@ public class SnippetKeyHook implements NativeKeyListener
             
             else if(checkKeyInput(keyConf.getScreenshotKeyEvent(), e))
                 display.getSnippetPanel().saveMonitorScreenshot();
+            
+            else if(e.getKeyCode() == NativeKeyEvent.VC_ESCAPE && display.isVisible())
+                display.getSnippetPanel().stopDrawing();
         }
     }
     

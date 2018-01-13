@@ -31,7 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javazoom.jl.player.Player;
 
-public class SnippetPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener
+public class SnippetPanel extends JPanel implements MouseListener, MouseMotionListener
 {
     private boolean isDrawingSnippet;
     private SnippetArea snippetArea;
@@ -46,10 +46,8 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         
         setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         setFocusable(true);
-        requestFocus();
         addMouseListener(this);
         addMouseMotionListener(this);
-        addKeyListener(this);
     }
     
     private void initDimensions()
@@ -163,15 +161,26 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         }
     }
     
+    public void stopDrawing()
+    {
+        isDrawingSnippet    =    false;
+        snippetArea         =   null;
+        AppManager.getInstance().hideFrame();
+    }
+    
     @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        
         Graphics2D g2d  =   (Graphics2D) g.create();
         g2d.setColor(Color.BLACK);
         
         if(isDrawingSnippet)
             g2d.draw(snippetArea.getShapeArea());
+        
+        else if(snippetArea == null)
+            g2d.draw(new Rectangle());
             
         g2d.dispose();
     }
@@ -194,15 +203,6 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
     {
         updateArea(e.getPoint());
     }
-
-    @Override
-    public void keyPressed(KeyEvent e) 
-    {
-        int keyCode =   e.getKeyCode();
-
-        if(keyCode == KeyEvent.VK_ESCAPE)
-            AppManager.getInstance().hideFrame();
-    }
         
     @Override
     public void mouseClicked(MouseEvent e) {}
@@ -215,10 +215,4 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
     
     @Override
     public void mouseMoved(MouseEvent e) {}
-        
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
 }
