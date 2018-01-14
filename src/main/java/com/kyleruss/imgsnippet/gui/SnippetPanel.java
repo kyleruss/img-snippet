@@ -19,8 +19,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -173,8 +171,9 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
     {
         super.paintComponent(g);
         
-        Graphics2D g2d  =   (Graphics2D) g.create();
-        g2d.setColor(Color.BLACK);
+        Graphics2D g2d      =   (Graphics2D) g.create();
+        Color borderColor   =   ConfigManager.getInstance().getAppConfig().getBorderColorObj();
+        g2d.setColor(borderColor);
         
         if(isDrawingSnippet)
             g2d.draw(snippetArea.getShapeArea());

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <appConfig>
+    <borderColor>#ff3333</borderColor>
     <clientID>5ee1ae88d9e1c42</clientID>
     <enablePreview>true</enablePreview>
     <imageDirectory>D:\Pictures\snippets\</imageDirectory>
     <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>
-	<borderColor>#000000</borderColor>
 </appConfig>
