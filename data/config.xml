@@ -5,4 +5,5 @@
     <imageDirectory>D:\Pictures\snippets\</imageDirectory>
     <storeLocally>true</storeLocally>
     <uploadOnline>true</uploadOnline>
+	<borderColor>#000000</borderColor>
 </appConfig>

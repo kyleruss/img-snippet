@@ -9,12 +9,14 @@ package com.kyleruss.imgsnippet.gui;
 import com.kyleruss.imgsnippet.app.AppManager;
 import com.kyleruss.imgsnippet.app.AppConfig;
 import com.kyleruss.imgsnippet.app.ConfigManager;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,13 +33,16 @@ public class SettingsPanel extends JPanel implements ActionListener
     private final String IMG_DIR_LABEL          =   "Capture Directory";
     private final String STORE_IMG_LABEL        =   "Store captures";
     private final String UPLOAD_CAPTURE_LABEL   =   "Upload captures";
+    private final String DRAW_COLOUR_LABEL      =   "Border Colour";
     
     private JTextField imgDirInput;
     private JCheckBox storeImgCheck, uploadImgCheck;
     private int binding;
     private KeybindBean tempKeybindBean;
+    private Color tempBorderColor;
     private JButton snippetBindToggle, screenshotBindToggle;
     private JButton activeBindButton;
+    private JButton drawColourButton;
     private static SettingsPanel instance;
     
     private SettingsPanel()
@@ -48,16 +53,19 @@ public class SettingsPanel extends JPanel implements ActionListener
         storeImgCheck           =   new JCheckBox();
         uploadImgCheck          =   new JCheckBox();
         snippetBindToggle       =   new JButton("Bind");
-        screenshotBindToggle    =   new JButton("Bind");   
+        screenshotBindToggle    =   new JButton("Bind");  
+        drawColourButton        =   new JButton("Choose");
         activeBindButton        =   null;
         binding                 =   BINDING_NONE;
         
+        addSettingComponent(DRAW_COLOUR_LABEL, drawColourButton);
         addSettingComponent(DRAW_BIND_LABEL, snippetBindToggle);
         addSettingComponent(SS_BIND_LABEL, screenshotBindToggle);
         addSettingComponent(IMG_DIR_LABEL, imgDirInput);
         addSettingComponent(STORE_IMG_LABEL, storeImgCheck);
         addSettingComponent(UPLOAD_CAPTURE_LABEL, uploadImgCheck);
 
+        drawColourButton.addActionListener(this);
         snippetBindToggle.addActionListener(this);
         screenshotBindToggle.addActionListener(this);
     }
@@ -79,12 +87,20 @@ public class SettingsPanel extends JPanel implements ActionListener
     
     public void setAppSettings()
     {
-        ConfigManager confManager   =   ConfigManager.getInstance();      
-        AppConfig config            =   confManager.getAppConfig();
+        AppConfig config    =   ConfigManager.getInstance().getAppConfig();
         
         config.setImageDirectory(imgDirInput.getText());
         config.setStoreLocally(storeImgCheck.isSelected());
         config.setUploadOnline(uploadImgCheck.isSelected());
+        
+        if(tempBorderColor != null)
+            config.setBorderColorObj(tempBorderColor);
+    }
+    
+    private void showDrawColorPicker()
+    {
+        AppConfig config            =   ConfigManager.getInstance().getAppConfig();
+        tempBorderColor             =   JColorChooser.showDialog(null, "Choose snippet border colour", config.getBorderColorObj());
     }
     
     public void setKeybindBean()
@@ -173,6 +189,9 @@ public class SettingsPanel extends JPanel implements ActionListener
         
         else if(src == screenshotBindToggle)
             toggleBindButton(screenshotBindToggle, BINDING_SCREENSHOT);
+        
+        else if(src == drawColourButton)
+            showDrawColorPicker();
     }
     
     public static SettingsPanel getInstance()

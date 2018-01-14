@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.app;
 
+import java.awt.Color;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,18 +18,21 @@ public class AppConfig
     private boolean uploadOnline;
     private String clientID;
     private boolean enablePreview;
+    private Color borderColorObj;
+    private String borderColor;
     
     public AppConfig()
     {
-        this("captures/", true, true, true);
+        this("captures/", true, true, true, "#000000");
     }
     
-    public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline , boolean enablePreview)
+    public AppConfig(String imageDirectory, boolean storeLocally, boolean uploadOnline , boolean enablePreview, String borderColor)
     {
         this.imageDirectory     =   imageDirectory;
         this.storeLocally       =   storeLocally;
         this.uploadOnline       =   uploadOnline;
         this.enablePreview      =   enablePreview;
+        this.borderColor        =   borderColor;
     }
 
     public boolean isUploadOnline() 
@@ -84,5 +88,28 @@ public class AppConfig
     public void setEnablePreview(boolean enablePreview) 
     {
         this.enablePreview = enablePreview;
+    }
+
+    public Color getBorderColorObj() 
+    {
+        return borderColorObj;
+    }
+
+    public void setBorderColorObj(Color borderColorObj) 
+    {
+        this.borderColorObj     =    borderColorObj;
+        this.borderColor        =    String.format("#%06x", borderColorObj.getRGB() & 0x00FFFFFF);
+    }
+
+    public String getBorderColor()
+    {
+        return borderColor;
+    }
+
+    @XmlElement
+    public void setBorderColor(String borderColor) 
+    {
+        this.borderColor     =   borderColor;
+        borderColorObj       =   Color.decode(borderColor);
     }
 }
