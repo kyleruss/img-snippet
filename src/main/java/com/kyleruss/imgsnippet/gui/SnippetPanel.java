@@ -104,6 +104,15 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         }
     }
     
+    //Trims snippet area to remove the included snippet drawn border
+    public void trimArea(Rectangle rect)
+    {
+        rect.x++;
+        rect.y++;
+        
+        rect.width--;
+        rect.height--;
+    }
     
     public void saveDrawnScreenshot()
     {
@@ -114,7 +123,10 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
             {
                 AppConfig config                        =   ConfigManager.getInstance().getAppConfig();
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
+                
+                trimArea(snippetArea.getShapeArea());
                 BufferedImage screenshot                =   screenshotManager.createScreenshotArea(snippetArea.getShapeArea());
+                
                 AppManager.getInstance().hideFrame();
                 playScreenshotSound(false);
                 boolean isSaveScreenshot                =   true;
