@@ -114,6 +114,22 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         rect.height--;
     }
     
+    public void saveScreenshot(BufferedImage screenshot)
+    {
+        try
+        {
+            ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
+            screenshotManager.handleScreenshot(screenshot);
+            playScreenshotSound(true);
+        }
+        
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Failed to save screenshot", "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
     public void saveDrawnScreenshot()
     {
         if(snippetArea.isEmptySpace()) JOptionPane.showMessageDialog(null, "Please select an area to screenshot");
@@ -121,7 +137,6 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         {
             try
             {
-                AppConfig config                        =   ConfigManager.getInstance().getAppConfig();
                 ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
                 
                 trimArea(snippetArea.getShapeArea());
@@ -129,7 +144,16 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
                 
                 AppManager.getInstance().hideFrame();
                 playScreenshotSound(false);
-                boolean isSaveScreenshot                =   true;
+                new ScreenshotPreviewPanel(screenshot).showPreviewPanel();
+                
+            }
+            
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Failed to draw snippet", "Error", JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();
+            }
+               /* boolean isSaveScreenshot                =   true;
                 
                 if(config.isEnablePreview())
                 {
@@ -149,7 +173,7 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
             {
                 JOptionPane.showMessageDialog(null, "Failed to save screenshot", "Error", JOptionPane.WARNING_MESSAGE);
                 e.printStackTrace();
-            }
+            } */
         }
     }
     

@@ -6,6 +6,7 @@
 
 package com.kyleruss.imgsnippet.gui;
 
+import com.kyleruss.imgsnippet.app.AppManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -86,6 +87,12 @@ public class ScreenshotPreviewPanel extends JPanel implements ActionListener
         
         if(src == closeBtn)
             dialog.setVisible(false);
+        
+        else if(src == saveBtn)
+        {
+            dialog.setVisible(false);
+            AppManager.getInstance().getSnippetPanel().saveScreenshot(screenshot);
+        }
         
     }
     
