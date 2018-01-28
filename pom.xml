@@ -41,6 +41,12 @@
             <artifactId>jnativehook</artifactId>
             <version>2.0.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swingx</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
     
     <build>
