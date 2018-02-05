@@ -114,12 +114,12 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
         rect.height--;
     }
     
-    public void saveScreenshot(BufferedImage screenshot)
+    public void saveScreenshot(BufferedImage screenshot, String filename)
     {
         try
         {
             ScreenshotManager screenshotManager     =   ScreenshotManager.getInstance();
-            screenshotManager.handleScreenshot(screenshot);
+            screenshotManager.handleScreenshot(screenshot, filename);
             playScreenshotSound(true);
         }
         
@@ -184,7 +184,7 @@ public class SnippetPanel extends JPanel implements MouseListener, MouseMotionLi
              ScreenshotManager screenshotManager        =   ScreenshotManager.getInstance();
              BufferedImage screenshot                   =   screenshotManager.createMonitorScreenshot();
              playScreenshotSound(false);
-             screenshotManager.handleScreenshot(screenshot);
+             screenshotManager.handleScreenshot(screenshot, null);
              playScreenshotSound(true);
         }
         

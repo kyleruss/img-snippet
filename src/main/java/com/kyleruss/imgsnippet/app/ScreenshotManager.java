@@ -68,7 +68,7 @@ public class ScreenshotManager
         clipboard.setContents(selection, null);
     }
     
-    public void handleScreenshot(BufferedImage screenshot) throws IOException
+    public void handleScreenshot(BufferedImage screenshot, String filename) throws IOException
     {
         AppConfig appConfig     =   ConfigManager.getInstance().getAppConfig();
         String screenshotLink   =   null;
@@ -77,7 +77,7 @@ public class ScreenshotManager
             screenshotLink      =   uploadScreenshot(screenshot);
         
         if(appConfig.isStoreLocally())
-            saveScreenshotToStorage(screenshot, screenshotLink);
+            saveScreenshotToStorage(screenshot, filename == null? screenshotLink : filename);
     }
     
     public BufferedImage createScreenshotArea(Rectangle area) throws AWTException

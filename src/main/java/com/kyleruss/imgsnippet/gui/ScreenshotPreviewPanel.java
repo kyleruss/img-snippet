@@ -22,9 +22,6 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class ScreenshotPreviewPanel extends JPanel implements ActionListener
 {
-    public static final int SAVE_OPTION         =   0;
-    public static final int CANCEL_OPTION       =   1;
-    
     private final BufferedImage screenshot;
     private JButton saveBtn, closeBtn;
     private JTextField fileNameField;
@@ -65,14 +62,9 @@ public class ScreenshotPreviewPanel extends JPanel implements ActionListener
         g.drawImage(screenshot, 0, 0, null);
     }
     
-    public int showPreviewPanel()
+    public void showPreviewPanel()
     {
-        String[] options    =   { "Save", "Cancel" };
-        //int option          =   JOptionPane.showOptionDialog(null, this, "Screenshot Preview", 0, JOptionPane.PLAIN_MESSAGE, null, options, null);
-       // dialog.add(this);
-      // if(dialog == null) dialog = new PreviewDialog();
         dialog.setVisible(true);
-        return -1;
     }
     
     public BufferedImage getScreenshot()
@@ -91,7 +83,9 @@ public class ScreenshotPreviewPanel extends JPanel implements ActionListener
         else if(src == saveBtn)
         {
             dialog.setVisible(false);
-            AppManager.getInstance().getSnippetPanel().saveScreenshot(screenshot);
+            String filename     =   fileNameField.getText();
+            filename            =   filename.equals("")? null : filename;
+            AppManager.getInstance().getSnippetPanel().saveScreenshot(screenshot, filename);
         }
         
     }
