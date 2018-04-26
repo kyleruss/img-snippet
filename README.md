@@ -20,8 +20,6 @@ Users are able to change the bindings, capture location and interface settings
 - JRE 1.7+ (Running from a release only)
 - JDK 1.7+ & Maven 3.3+ (Building project)
 
-### Usage
-
 ### Installation
 
 - [Download](https://github.com/kyleruss/img-snippet/releases/latest) the latest stable release  
@@ -32,15 +30,29 @@ to launch ImgSnippet on Windows startup
 
 ### Build
 
+- Clone the ImgSnippet repository
 
+```
+git clone https://github.com/kyleruss/img-snippet.git
+```
 
-### Keybinds
+- Build the project with maven
 
-Capture Snippet: Ctrl + Shift + 1
+```
+mvn package
+```
 
-Take Screenshot: Ctrl + Shift + 2
+**Note:** This project was developed in Netbeans and can be directly imported into the IDE
 
-Note: key binds can be changed in settings
+### Shortcuts
+
+- Capture Snippet  
+`Ctrl + Shift + 1`
+
+- Take Screenshot  
+`Ctrl + Shift + 2`
+
+**Note:** Shortcuts can be changed in settings
 
 ## License
 
