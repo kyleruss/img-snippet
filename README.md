@@ -6,7 +6,7 @@ Img Snippet
 [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-<img src="data/images/preview.png" />  
+<img src="preview/preview.png" />  
 
 
 ImgSnippet allows users to capture *snippets* or take standard screenshots  
