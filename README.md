@@ -1,4 +1,4 @@
-<img src="data/images/trayIcon.png" width="60" height="60" align="left" />
+<img src="preview/AppIcon.png" width="60" height="60" align="left" />
 
 Img Snippet
 ===========
