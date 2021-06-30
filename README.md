@@ -10,7 +10,7 @@ Img Snippet
 
 
 ImgSnippet allows users to capture *snippets* or take standard screenshots  
-Captured screenshots are saved locally and uploaded to [imgur](http://www.imgur.com)  
+Captured screenshots are saved locally and uploaded to [imgur](http://www.imgur.com) and copied to your clipboard   
 Users are able to change the bindings, capture location and interface settings
 
 
