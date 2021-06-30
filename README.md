@@ -28,6 +28,16 @@ Users are able to change the bindings, capture location and interface settings
 - **Note:** Create a shortcut ImgSnippet and copy the shortcut into the `shell:startup` directory  
 to launch ImgSnippet on Windows startup
 
+### Shortcuts
+
+- Capture Snippet  
+`Ctrl + Shift + 1`
+
+- Take Screenshot  
+`Ctrl + Shift + 2`
+
+**Note:** Shortcuts can be changed in settings
+
 ### Build
 
 - Clone the ImgSnippet repository
@@ -44,15 +54,6 @@ mvn package
 
 **Note:** This project was developed in Netbeans and can be directly imported into the IDE
 
-### Shortcuts
-
-- Capture Snippet  
-`Ctrl + Shift + 1`
-
-- Take Screenshot  
-`Ctrl + Shift + 2`
-
-**Note:** Shortcuts can be changed in settings
 
 ## License
 
